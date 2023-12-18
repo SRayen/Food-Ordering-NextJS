@@ -3,7 +3,7 @@ export default function Header() {
   return (
     <header className="flex items-center justify-between">
       <Link className="text-primary font-semibold text-2xl" href="">
-        ST PIZZA
+        SRayen PIZZA
       </Link>
       <nav className="flex text-gray-500 gap-8 font-semibold">
         <Link href="">Home</Link>
