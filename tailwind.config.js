@@ -14,6 +14,9 @@ module.exports = {
         primary: "green",
         secondary: "#f13a01",
       },
+      fontFamily: {
+        poppins: ["var(--font-poppins)"],
+      },
     },
   },
   darkMode: "class",
