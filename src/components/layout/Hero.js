@@ -4,7 +4,7 @@ import Right from "../icons/Right";
 
 export default function Hero() {
   return (
-    <section className="hero">
+    <section className="hero mt-4">
       <div className="py-8">
         <h1 className="text-4xl font-semibold text-center leading-tight">
           Welcome to Our Delicious <span className="text-primary">Pizza</span>
