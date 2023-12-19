@@ -32,7 +32,7 @@ export default function Header() {
           />
           <NavbarBrand>
             <Link
-              className="animate-bounce text-primary font-semibold text-2xl right-0"
+              className="animate-bounce text-primary font-semibold text-2xl"
               href="/"
             >
               SRayen PIZZA
