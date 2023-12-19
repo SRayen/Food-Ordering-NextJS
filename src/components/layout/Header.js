@@ -7,11 +7,11 @@ import {
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  Button,
   NavbarMenuToggle,
   NavbarMenuItem,
   NavbarMenu,
 } from "@nextui-org/react";
+import Buttons from "../ui/Buttons";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -59,15 +59,8 @@ export default function Header() {
         ))}
 
         <NavbarContent justify="end">
-          <NavbarItem>
-            <Button as={Link} color="secondary" href="/register" variant="flat">
-              Sign Up
-            </Button>
-          </NavbarItem>
-          <NavbarItem>
-            <Button as={Link} color="primary" href="#" variant="flat">
-              Sign In
-            </Button>
+          <NavbarItem className="hidden sm:flex gap-2">
+            <Buttons />
           </NavbarItem>
         </NavbarContent>
 
@@ -90,6 +83,7 @@ export default function Header() {
               </Link>
             </NavbarMenuItem>
           ))}
+          <Buttons />
         </NavbarMenu>
       </Navbar>
     </header>
