@@ -8,12 +8,12 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import { EyeSlashFilledIcon } from "../../../src/components/icons/EyeSlashFilledIcon";
 import { EyeFilledIcon } from "../../../src/components/icons/EyeFilledIcon";
-
-import toast from "react-hot-toast";
-import Link from "next/link";
 import Loading from "../loading";
+import Link from "next/link";
 import { signIn } from "next-auth/react";
-export default function RegisterPage() {
+
+export default function LoginPage() {
+
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -33,38 +33,16 @@ export default function RegisterPage() {
       password: Yup.string()
         .min(8, "Phone number must be at least 8 characters")
         .required("Required field"),
-      confirm_password: Yup.string()
-        .label("confirm password")
-        .required()
-        .oneOf([Yup.ref("password")], "Passwords must match"),
     }),
     onSubmit: async (values) => {
-      setApiError("");
-      try {
-        const res = await fetch("/api/register", {
-          method: "POST",
-          body: JSON.stringify(values),
-          headers: { "Content-Type": "application/json" },
-        });
-
-        if (res.ok) {
-          setCreated(!created);
-          toast.success("Registration successful!");
-          formik.resetForm();
-        } else {
-          const error = await res.json();
-
-          setApiError("An error has occurred! Please try again later.");
-        }
-      } catch (error) {
-        setApiError("An error has occurred! Please try again later.");
-      }
+      const { email, password } = values;
+      await signIn("credentials", { email, password, callbackUrl: "/" });
     },
   });
 
   return (
     <section className="mt-14 max-w-md mx-auto">
-      <h1 className="text-center text-primary text-4xl">Register</h1>
+      <h1 className="text-center text-primary text-4xl">Login</h1>
       {created && (
         <p className="text-center mt-6 text-lg font-poppins font-bold">
           User created. Now you can &nbsp;
@@ -128,41 +106,6 @@ export default function RegisterPage() {
             {formik.touched.password && formik.errors.password ? (
               <div className="text-red-500">{formik.errors.password}</div>
             ) : null}
-
-            {/* confirm_password */}
-            <Input
-              label="Confirm password"
-              placeholder="Confirm your password"
-              radius={"full"}
-              size={"lg"}
-              id="confirm_password"
-              name="confirm_password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              value={formik.values.confirm_password}
-              disabled={formik.isSubmitting}
-              endContent={
-                <button
-                  className="focus:outline-none"
-                  type="button"
-                  onClick={toggleVisibility}
-                >
-                  {isVisible ? (
-                    <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                  ) : (
-                    <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
-                  )}
-                </button>
-              }
-              type={isVisible ? "text" : "password"}
-            />
-
-            {formik.touched.confirm_password &&
-            formik.errors.confirm_password ? (
-              <div className="text-red-500">
-                {formik.errors.confirm_password}
-              </div>
-            ) : null}
           </div>
 
           {/* Loading and Error handling */}
@@ -181,7 +124,7 @@ export default function RegisterPage() {
             className="my-10 disabled:bg-gray-500"
             disabled={formik.isSubmitting}
           >
-            Register
+            Login
           </Button>
           <div className="my-4 text-center text-gray-500">
             or login with provider
