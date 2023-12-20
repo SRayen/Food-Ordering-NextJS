@@ -13,6 +13,8 @@ import {
 } from "@nextui-org/react";
 import Buttons from "../ui/Buttons";
 export default function Header() {
+
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
