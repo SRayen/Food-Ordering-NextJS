@@ -15,9 +15,10 @@ export default function ProfilePage() {
   const session = useSession();
 
   const [apiError, setApiError] = useState("");
+  const [saved, setSaved] = useState(false);
   const formik = useFormik({
     initialValues: {
-      user_name: "",
+      user_name: session?.data?.user?.name,
     },
     validationSchema: Yup.object({
       user_name: Yup.string().required("Required field"),
@@ -27,9 +28,10 @@ export default function ProfilePage() {
       try {
         const response = await axios.put("/api/profile", values);
         if (response.status === 200) {
-          console.log("wiii");
           toast.success("Data has been updated successfully!");
+          setSaved(!saved);
           formik.resetForm();
+          window.location.reload();
         } else {
           const errorData = response.data;
           setApiError(errorData.message);
@@ -43,7 +45,6 @@ export default function ProfilePage() {
       }
     },
   });
-
 
   const { status } = session;
 
@@ -59,6 +60,12 @@ export default function ProfilePage() {
   return (
     <section className="mt-14 max-w-lg mx-auto">
       <h1 className="text-center text-primary text-4xl">Profile</h1>
+
+      {saved && (
+        <h2 className="mt-2 text-center bg-green-100 p-4 rounded-lg border-4 border-green-300">
+          Profile saved!
+        </h2>
+      )}
 
       <div className="flex gap-2">
         <div className="my-8 flex flex-col gap-4 p-3 ">

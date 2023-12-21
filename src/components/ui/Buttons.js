@@ -1,4 +1,5 @@
 "use client";
+import React, { useState, useEffect } from "react";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
@@ -7,9 +8,15 @@ import { Avatar } from "@nextui-org/react";
 export default function Buttons() {
   const session = useSession();
   const userImage = session?.data?.user?.image;
-  console.log("userImage===>", userImage);
-  console.log("session===>", session);
+
   const { status } = session;
+
+  // const [userName, setUserName] = useState("");
+
+  // useEffect(() => {
+ 
+  //   setUserName(userName);
+  // }, [session.status,session.data?.user]);
   const userData = session.data?.user;
   let userName = userData?.name || userData?.email;
   if (userName?.includes(" ")) {
