@@ -29,8 +29,7 @@
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/app/api/auth/[...nextauth]/route.js", "src/app/providers/NextUiProvider.js"  ],
+    "**/*.tsx" ],
   "exclude": [
     "node_modules"
   ]
