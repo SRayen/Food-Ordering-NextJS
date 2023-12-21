@@ -4,7 +4,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/options";
 import { NextResponse } from "next/server";
 export async function PUT(req) {
-  try {
+  try { 
     const body = await req.json();
     await mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URL);
 
