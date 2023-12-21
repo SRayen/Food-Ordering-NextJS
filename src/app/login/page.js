@@ -10,16 +10,19 @@ import { EyeSlashFilledIcon } from "../../../src/components/icons/EyeSlashFilled
 import { EyeFilledIcon } from "../../../src/components/icons/EyeFilledIcon";
 import Loading from "../loading";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 
 export default function LoginPage() {
-
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const [apiError, setApiError] = useState("");
   const [created, setCreated] = useState(false);
+
+  const session = useSession();
+
+  const { status } = session;
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +45,8 @@ export default function LoginPage() {
 
   return (
     <section className="mt-14 max-w-md mx-auto">
-      <h1 className="text-center text-primary text-4xl">Login</h1>
+      <h1 className="text-center text-primary text-4xl my-2">Login</h1>
+      {status === "loading" && <Loading />}
       {created && (
         <p className="text-center mt-6 text-lg font-poppins font-bold">
           User created. Now you can &nbsp;
@@ -126,32 +130,28 @@ export default function LoginPage() {
           >
             Login
           </Button>
-          <div className="my-4 text-center text-gray-500">
-            or login with provider
-          </div>
-          <button
-            onClick={() => signIn("google", { callbackUrl: "/" })}
-            className="flex gap-4 justify-center border p-3 rounded-xl mx-auto hover:bg-green-300 duration-150 ease-in-out"
-          >
-            <Image
-              src={"/google.png"}
-              alt={"google icon"}
-              width={24}
-              height={24}
-            />
-            Login with google
-          </button>
-          <p className="text-center mt-6 text-lg font-poppins font-bold">
-            Existing account ?{" "}
-            <Link
-              href={"/login"}
-              className="underline text-warning hover:text-green-800 cursor-pointer"
-            >
-              Login here &raquo;
-            </Link>
-          </p>
         </div>
       </form>
+
+      <div className="my-4 text-center text-gray-500">
+        or login with provider
+      </div>
+      <button
+        onClick={() => signIn("google", { callbackUrl: "/" })}
+        className="flex gap-4 justify-center border p-3 rounded-xl mx-auto hover:bg-green-300 duration-150 ease-in-out"
+      >
+        <Image src={"/google.png"} alt={"google icon"} width={24} height={24} />
+        Login with google
+      </button>
+      <p className="text-center mt-6 text-lg font-poppins font-bold">
+        Existing account ?{" "}
+        <Link
+          href={"/login"}
+          className="underline text-warning hover:text-green-800 cursor-pointer"
+        >
+          Login here &raquo;
+        </Link>
+      </p>
     </section>
   );
 }

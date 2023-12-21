@@ -11,10 +11,9 @@ import {
   NavbarMenuItem,
   NavbarMenu,
 } from "@nextui-org/react";
-import Buttons from "../ui/Buttons";
+import Buttons from "@/components/ui/Buttons";
+
 export default function Header() {
-
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const menuItems = [
