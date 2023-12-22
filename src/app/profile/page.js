@@ -58,8 +58,8 @@ export default function ProfilePage() {
 
         const image = new FormData();
         image.append("file", imagefile);
-        image.append("cloud_name", "ray-cloud"); //From Cloudinary Account
-        image.append("upload_preset", "im5qrbmt"); //From Cloudinary Account
+        image.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME); //From Cloudinary Account
+        image.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET); //From Cloudinary Account
 
         //First Save Image to Cloudinary
         const response = await fetch(
