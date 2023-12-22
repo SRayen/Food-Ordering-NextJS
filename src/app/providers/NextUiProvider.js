@@ -2,11 +2,14 @@
 
 import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
-
+import { Toaster } from "react-hot-toast";
 export function Providers({ children }) {
   return (
     <SessionProvider>
-      <NextUIProvider>{children}</NextUIProvider>
+      <NextUIProvider>
+        {children}
+        <Toaster position="top-center" reverseOrder={false} />
+      </NextUIProvider>
     </SessionProvider>
   );
 }

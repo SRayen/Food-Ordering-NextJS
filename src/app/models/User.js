@@ -4,6 +4,7 @@ import * as bcrypt from "bcrypt";
 const userSchema = new Schema(
   {
     name: { type: String },
+    image: { type: String },
     email: { type: String, required: true, unique: true, trim: true },
     password: {
       type: String,
