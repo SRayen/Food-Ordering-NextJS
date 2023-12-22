@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${roboto.className} ${poppins.variable}`}>
-        <main className="max-w-4xl border mx-auto p-4">
+        <main className="max-w-4xl border mx-auto py-4 px-2">
           <Providers>
             <Header />
             {children}
