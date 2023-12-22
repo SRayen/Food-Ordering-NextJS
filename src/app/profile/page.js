@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Loading from "../loading";
 import { redirect } from "next/navigation";
@@ -16,27 +16,77 @@ export default function ProfilePage() {
 
   const [apiError, setApiError] = useState("");
   const [saved, setSaved] = useState(false);
-  const formik = useFormik({
+  const [imagefile, setImageFile] = useState(null);
+
+  const [userImage, setUserImage] = useState(session?.data?.user?.image);
+  const [userName, setUserName] = useState(session?.data?.user?.name);
+
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      setUserName(session?.data?.user?.name);
+      setUserImage(session?.data?.user?.image);
+    }
+  }, [session.status, session?.data?.user?.image, session?.data?.user?.name]);
+
+  const handleFileChange = async (e) => {
+    const file = e?.target?.files[0];
+    setImageFile(file);
+    if (file) {
+      setUserImage(URL.createObjectURL(file));
+    }
+
+  };
+
+    const formik = useFormik({
     initialValues: {
-      user_name: session?.data?.user?.name,
+      user_name: userName,
     },
     validationSchema: Yup.object({
-      user_name: Yup.string().required("Required field"),
+      user_name: Yup.string(),
     }),
     onSubmit: async (values) => {
       setApiError("");
+
+      //Upload Image:
+      let imageURL;
+      if (
+        imagefile &&
+        (imagefile.type === "image/jpeg" ||
+          imagefile.type === "image/jpg" ||
+          imagefile.type === "image/png")
+      ) {
+
+        const image = new FormData();
+        image.append("file", imagefile);
+        image.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME); //From Cloudinary Account
+        image.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET); //From Cloudinary Account
+
+        //First Save Image to Cloudinary
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/ray-cloud/image/upload",
+          { method: "post", body: image }
+        );
+
+        const imgData = await response.json();
+        imageURL = imgData?.url?.toString();
+      }
+
       try {
-        const response = await axios.put("/api/profile", values);
+        const response = await axios.put("/api/profile", {
+          user_name: values.user_name,
+          image: imageURL,
+        });
         if (response.status === 200) {
           toast.success("Data has been updated successfully!");
           setSaved(!saved);
-          formik.resetForm();
+
           window.location.reload();
         } else {
           const errorData = response.data;
           setApiError(errorData.message);
         }
       } catch (error) {
+        console.log("off===>", error);
         error?.response?.data?.message
           ? setApiError(error.response.data.message)
           : setApiError(
@@ -55,7 +105,6 @@ export default function ProfilePage() {
     return redirect("/login");
   }
   const userEmail = session?.data?.user?.email;
-  const userImage = session?.data?.user?.image;
 
   return (
     <section className="mt-14 max-w-lg mx-auto">
@@ -75,9 +124,17 @@ export default function ProfilePage() {
             src={userImage}
             className="w-20 h-30 text-large"
           />
-          <Button color="primary" variant="ghost">
-            Edit
-          </Button>
+
+          <label>
+            <input
+              type="file"
+              className="hidden"
+              onChange={(e) => handleFileChange(e)}
+            />
+            <span className="block border border-gray-300 rounded-lg p-2 text-center cursor-pointer font-bold hover:bg-green-400">
+              Edit
+            </span>
+          </label>
         </div>
 
         <form onSubmit={formik.handleSubmit} className="w-full mr-2">

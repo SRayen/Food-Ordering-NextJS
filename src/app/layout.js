@@ -2,7 +2,7 @@ import { Roboto, Poppins } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
-import { Toaster } from "react-hot-toast";
+
 import { Providers } from "./providers/NextUiProvider";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"] });
@@ -26,7 +26,6 @@ export default function RootLayout({ children }) {
           <Providers>
             <Header />
             {children}
-            <Toaster position="top-center" reverseOrder={false} />
             <Footer />
           </Providers>
         </main>
