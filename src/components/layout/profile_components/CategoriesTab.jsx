@@ -18,6 +18,7 @@ import {
   TableRow,
   TableCell,
   Tooltip,
+  Chip,
 } from "@nextui-org/react";
 import { EditIcon } from "@/components/ui/EditIcon";
 import { DeleteIcon } from "@/components/ui/DeleteIcon";
@@ -144,9 +145,16 @@ export default function CategoriesTab({ user }) {
 
   return (
     <section className="mt-5 w-full mx-auto font-semibold">
-      <Card shadow="lg" disableAnimation="true" className="bg-green-100">
+      <Card shadow="lg" disableAnimation="true" className="bg-green-50">
         <CardBody>
-          <p className="text-center font-bold text-xl">Category</p>
+          <div className="flex justify-center items-center gap-4">
+            <p className="text-center font-bold text-xl">Categories</p>
+            <Chip size="sm" variant="bordered" color="primary">
+              <span className="m-1 font-extrabold text-medium">
+                {categories.length}
+              </span>
+            </Chip>
+          </div>
         </CardBody>
       </Card>
       {saved && (
