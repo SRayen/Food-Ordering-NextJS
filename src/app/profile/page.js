@@ -6,20 +6,18 @@ import axios from "axios";
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
 
 import ProfileTab from "@/components/layout/profile_components/ProfileTab";
+import CategoriesTab from "@/components/layout/profile_components/CategoriesTab";
+import useSWR from "swr";
 export default function ProfilePage() {
   const session = useSession();
 
-  const [user, setUser] = useState({});
-  useEffect(() => {
-    if (session.status === "authenticated") {
-      const fetch = async () => {
-        const response = await axios.get("/api/profile");
-        response.data;
-        setUser(response.data);
-      };
-      fetch();
-    }
-  }, [session.status, session?.data?.user?.image, session?.data?.user?.name]);
+  const fetcher = async () => {
+    const response = await axios.get("/api/profile");
+    return response.data;
+  };
+
+  // Get categories data from server with SWR
+  const { data: user, error, isLoading } = useSWR("user", fetcher);
 
   let tabs = [
     {
@@ -28,17 +26,24 @@ export default function ProfilePage() {
       content: <ProfileTab user={user} />,
     },
     {
+      id: "Categories",
+      label: "Categories",
+      content: <CategoriesTab />,
+    },
+    {
       id: "Menu",
       label: "Menu Items",
-      content: <ProfileTab />,
+      content: <ProfileTab user={user} />,
     },
     {
       id: "Users",
       label: "Users",
-      content: <ProfileTab />,
+      content: <ProfileTab user={user} />,
     },
   ];
 
+  if (error) return <div>failed to load</div>;
+  if (isLoading) return <Loading />;
   return (
     <>
       {session.status === "loading" ? (
