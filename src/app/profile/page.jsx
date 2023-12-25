@@ -1,7 +1,7 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import Loading from "../loading";
+import Loading from "@/app/loading";
 import axios from "axios";
 import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
 

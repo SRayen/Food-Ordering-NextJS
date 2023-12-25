@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Loading from "@/app/loading";
 import { redirect } from "next/navigation";
@@ -159,7 +159,7 @@ export default function ProfileTab({ user }) {
 
   return (
     <section className="mt-5 w-full mx-auto font-semibold">
-      <Card shadow="lg" disableAnimation="true" className='bg-green-100'>
+      <Card shadow="lg" disableAnimation="true" className="bg-green-100">
         <CardBody>
           <p className="text-center font-bold text-xl">Profile</p>
         </CardBody>

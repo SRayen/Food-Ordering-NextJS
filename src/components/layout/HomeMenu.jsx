@@ -1,6 +1,5 @@
 import Image from "next/image";
-import React from "react";
-import MenuItem from "../menu/MenuIte";
+import MenuItem from "../menu/MenuItem";
 import SectionHeaders from "./SectionHeaders";
 
 export default function HomeMenu() {

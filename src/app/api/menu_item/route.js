@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
-import { Category } from "@/app/models/Category";
+import { Category } from "../../models/Category";
 
 export async function POST(req) {
   try {
@@ -24,19 +24,6 @@ export async function POST(req) {
     }
     const createdCategory = await new Category({ name }).save();
     return NextResponse.json(createdCategory, { status: 201 });
-  } catch (error) {
-    return NextResponse.json(
-      { message: "Something went wrong" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function GET() {
-  try {
-    mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URL);
-    const categories = await Category.find();
-    return NextResponse.json(categories, { status: 200 });
   } catch (error) {
     return NextResponse.json(
       { message: "Something went wrong" },
