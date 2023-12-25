@@ -110,7 +110,6 @@ export default function ProfileTab({ user }) {
         if (response.status === 200) {
           toast.success("Data has been updated successfully!");
           setSaved(!saved);
-
           window.location.reload();
         } else {
           const errorData = response.data;
@@ -136,30 +135,9 @@ export default function ProfileTab({ user }) {
   }
   const userEmail = session?.data?.user?.email;
 
-  let tabs = [
-    {
-      id: "Profile",
-      label: "Profile",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    },
-    {
-      id: "music",
-      label: "Music",
-      content:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    },
-    {
-      id: "videos",
-      label: "Videos",
-      content:
-        "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    },
-  ];
-
   return (
     <section className="mt-5 w-full mx-auto font-semibold">
-      <Card shadow="lg" disableAnimation="true" className='bg-green-100'>
+      <Card shadow="lg" disableAnimation="true" className="bg-green-100">
         <CardBody>
           <p className="text-center font-bold text-xl">Profile</p>
         </CardBody>
