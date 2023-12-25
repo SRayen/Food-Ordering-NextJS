@@ -37,7 +37,7 @@ export default function CategoriesTab({ user }) {
   const [categorieToDelete, setCategorieToDelete] = useState({});
 
   const fetcher = async () => {
-    const response = await axios.get("/api/ca5tegory");
+    const response = await axios.get("/api/category");
     return response.data;
   };
 
