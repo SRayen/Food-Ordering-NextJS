@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function Right({ className = "w-6 h-6" }) {
   return (
     <svg

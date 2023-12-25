@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import Loading from "@/app/loading";
 import { redirect } from "next/navigation";

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
-import { Category } from "../../../models/Category";
+import { Category } from "@/app/models/Category";
 
 export async function PUT(req) {
   try {

@@ -1,18 +1,21 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { Input } from "@nextui-org/react";
 import { Button } from "@nextui-org/react";
 import Image from "next/image";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { EyeSlashFilledIcon } from "../../../src/components/icons/EyeSlashFilledIcon";
-import { EyeFilledIcon } from "../../../src/components/icons/EyeFilledIcon";
-import Loading from "../loading";
-import Link from "next/link";
-import { signIn, useSession } from "next-auth/react";
+// import { EyeSlashFilledIcon } from "../../components/icons/EyeSlashFilledIcon";
+import { EyeSlashFilledIcon } from "@/components/icons/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "@/components/icons/EyeFilledIcon";
 
-export default function LoginPage() {
+import toast from "react-hot-toast";
+import Link from "next/link";
+import Loading from "../loading";
+import { signIn, useSession } from "next-auth/react";
+import axios from "axios";
+export default function RegisterPage() {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
@@ -36,16 +39,36 @@ export default function LoginPage() {
       password: Yup.string()
         .min(8, "Phone number must be at least 8 characters")
         .required("Required field"),
+      confirm_password: Yup.string()
+        .label("confirm password")
+        .required()
+        .oneOf([Yup.ref("password")], "Passwords must match"),
     }),
     onSubmit: async (values) => {
-      const { email, password } = values;
-      await signIn("credentials", { email, password, callbackUrl: "/" });
+      setApiError("");
+      try {
+        const response = await axios.post("/api/register", values);
+        if (response.status === 201) {
+          toast.success("Registration successful!");
+          setCreated(!created);
+          formik.resetForm();
+        } else {
+          const errorData = response.data;
+          setApiError(errorData.message);
+        }
+      } catch (error) {
+        error?.response?.data?.message
+          ? setApiError(error.response.data.message)
+          : setApiError(
+              "An unexpected error occurred. Please try again later."
+            );
+      }
     },
   });
 
   return (
     <section className="mt-14 max-w-md mx-auto">
-      <h1 className="text-center text-primary text-4xl my-2">Login</h1>
+      <h1 className="text-center text-primary text-4xl my-2">Register</h1>
       {status === "loading" && <Loading />}
       {created && (
         <p className="text-center mt-6 text-lg font-poppins font-bold">
@@ -110,6 +133,41 @@ export default function LoginPage() {
             {formik.touched.password && formik.errors.password ? (
               <div className="text-red-500">{formik.errors.password}</div>
             ) : null}
+
+            {/* confirm_password */}
+            <Input
+              label="Confirm password"
+              placeholder="Confirm your password"
+              radius={"full"}
+              size={"lg"}
+              id="confirm_password"
+              name="confirm_password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.confirm_password}
+              disabled={formik.isSubmitting}
+              endContent={
+                <button
+                  className="focus:outline-none"
+                  type="button"
+                  onClick={toggleVisibility}
+                >
+                  {isVisible ? (
+                    <EyeSlashFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                  ) : (
+                    <EyeFilledIcon className="text-2xl text-default-400 pointer-events-none" />
+                  )}
+                </button>
+              }
+              type={isVisible ? "text" : "password"}
+            />
+
+            {formik.touched.confirm_password &&
+            formik.errors.confirm_password ? (
+              <div className="text-red-500">
+                {formik.errors.confirm_password}
+              </div>
+            ) : null}
           </div>
 
           {/* Loading and Error handling */}
@@ -128,7 +186,7 @@ export default function LoginPage() {
             className="my-10 disabled:bg-gray-500"
             disabled={formik.isSubmitting}
           >
-            Login
+            Register
           </Button>
         </div>
       </form>

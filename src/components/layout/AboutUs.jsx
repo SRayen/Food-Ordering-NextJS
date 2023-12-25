@@ -1,4 +1,3 @@
-import React from "react";
 import SectionHeaders from "./SectionHeaders";
 
 export default function AboutUs() {
