@@ -1,12 +1,12 @@
 "use client";
-import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import Loading from "@/app/loading";
 import axios from "axios";
-import { Tabs, Tab, Card, CardBody, CardHeader } from "@nextui-org/react";
+import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 
 import ProfileTab from "@/components/layout/profile_components/ProfileTab";
 import CategoriesTab from "@/components/layout/profile_components/CategoriesTab";
+import MenuItemTab from "@/components/layout/profile_components/MenuItemTab";
 import useSWR from "swr";
 export default function ProfilePage() {
   const session = useSession();
@@ -33,7 +33,7 @@ export default function ProfilePage() {
     {
       id: "Menu",
       label: "Menu Items",
-      content: <ProfileTab user={user} />,
+      content: <MenuItemTab />,
     },
     {
       id: "Users",
