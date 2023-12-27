@@ -1,11 +1,27 @@
 import React from "react";
 import { Input, Button } from "@nextui-org/react";
-import { DeleteIcon } from "@/components/ui/DeleteIcon";
-export default function SizesForm({ formik, index, setSizes, sizes }) {
+import { DeleteIcon } from "@/components/icons/DeleteIcon";
+export default function SizesForm({
+  formik,
+  index,
+  setSizes,
+  sizes,
+  selectedMenu,
+  setSelectedMenu,
+}) {
   const deleteField = () => {
-    const newSizes = sizes.filter((size) => sizes.indexOf(size) !== index);
-    setSizes(newSizes);
+    if (selectedMenu?.sizes) {
+      const newSizes = selectedMenu.sizes.filter(
+        (size) => selectedMenu.sizes.indexOf(size) !== index
+      );
+
+      setSelectedMenu({ ...selectedMenu, sizes: newSizes });
+    } else {
+      const newSizes = sizes.filter((size) => sizes.indexOf(size) !== index);
+      setSizes(newSizes);
+    }
   };
+
   return (
     <div className="flex flex-col md:flex-row gap-2 justify-between items-center w-full md:flex-nowrap  mt-6">
       <Input

@@ -20,8 +20,8 @@ import {
   Tooltip,
   Chip,
 } from "@nextui-org/react";
-import { EditIcon } from "@/components/ui/EditIcon";
-import { DeleteIcon } from "@/components/ui/DeleteIcon";
+import { EditIcon } from "@/components/icons/EditIcon";
+import { DeleteIcon } from "@/components/icons/DeleteIcon";
 import { Modal } from "antd";
 import useSWR, { mutate } from "swr";
 import Error from "@/app/error";

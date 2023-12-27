@@ -1,4 +1,31 @@
 @tailwind base;
+
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+  border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #008000;
+  border-radius: 14px;
+  border: 1px var(--primary);
+  -webkit-border-radius: 14px;
+  -moz-border-radius: 14px;
+  -ms-border-radius: 14px;
+  -o-border-radius: 14px;
+}
+
 @tailwind components;
 @tailwind utilities;
 
@@ -6,4 +33,3 @@ section.hero {
   @apply grid;
   grid-template-columns: 0.4fr 0.6fr;
 }
-

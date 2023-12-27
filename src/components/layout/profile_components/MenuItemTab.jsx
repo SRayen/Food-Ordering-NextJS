@@ -24,6 +24,7 @@ import SizesForm from "@/components/layout/profile_components/menu_comonents/Siz
 import ExtraIngredientPricesForm from "@/components/layout/profile_components/menu_comonents/ExtraIngredientPricesForm";
 import MenuList from "@/components/layout/profile_components/menu_comonents/MenuList";
 import useSWR, { mutate } from "swr";
+import ChevronDown from "@/components/icons/ChevronDown";
 export default function MenuItemTab({ user }) {
   const session = useSession();
   const [selectedMenu, setSelectedMenu] = useState({});
@@ -32,6 +33,10 @@ export default function MenuItemTab({ user }) {
   const [imagefile, setImageFile] = useState(null);
 
   const [menuImage, setMenuImage] = useState(null);
+
+  const [sizeDisplay, setSizeDisplay] = useState(false);
+
+  const [IngredientDisplay, setIngredientDisplay] = useState(false);
 
   const fetcher = async () => {
     const response = await axios.get("/api/category");
@@ -50,14 +55,31 @@ export default function MenuItemTab({ user }) {
   );
 
   const addSizeField = () => {
-    setSizes([...sizes, { name: "", price: "" }]);
+    if (selectedMenu?.sizes) {
+      setSelectedMenu({
+        ...selectedMenu,
+        sizes: [...selectedMenu.sizes, { name: "", price: "" }],
+      });
+    } else {
+      setSizes([...sizes, { name: "", price: "" }]);
+    }
   };
 
   const addIngredientField = () => {
-    setExtraIngredientPrices([
-      ...extraIngredientPrices,
-      { name: "", price: "" },
-    ]);
+    if (selectedMenu?.extraIngredientPrices) {
+      setSelectedMenu({
+        ...selectedMenu,
+        extraIngredientPrices: [
+          ...selectedMenu.extraIngredientPrices,
+          { name: "", price: "" },
+        ],
+      });
+    } else {
+      setExtraIngredientPrices([
+        ...extraIngredientPrices,
+        { name: "", price: "" },
+      ]);
+    }
   };
 
   const handleFileChange = async (e) => {
@@ -67,7 +89,7 @@ export default function MenuItemTab({ user }) {
       setMenuImage(URL.createObjectURL(file));
     }
   };
- 
+
   const formik = useFormik({
     enableReinitialize: true, //to enable reinitialization
     initialValues: {
@@ -311,16 +333,21 @@ export default function MenuItemTab({ user }) {
             </div>
             {/* Sizes Card */}
             <Card className="p-0">
-              <CardHeader className="justify-center">
+              <CardHeader
+                className="justify-center cursor-pointer hover:bg-blue-50"
+                onClick={() => setSizeDisplay(!sizeDisplay)}
+              >
+                <ChevronDown />
                 <h1>Sizes</h1>
               </CardHeader>
               <Divider />
-              <CardBody className="bg-green-50">
+              <CardBody
+                className={`bg-green-50 ${sizeDisplay ? "block" : "hidden"} `}
+              >
                 <Button
                   color="success"
                   size={"md"}
                   variant="shadow"
-                  type="submit"
                   className="my-1 disabled:bg-gray-500  mx-auto"
                   disabled={formik.isSubmitting}
                   onClick={() => addSizeField()}
@@ -335,6 +362,8 @@ export default function MenuItemTab({ user }) {
                         index={index}
                         setSizes={setSizes}
                         sizes={sizes}
+                        selectedMenu={selectedMenu}
+                        setSelectedMenu={setSelectedMenu}
                       />
                     ))
                   : sizes?.map((size, index) => (
@@ -352,16 +381,23 @@ export default function MenuItemTab({ user }) {
 
             {/* ExtraIngredientPricesForm Card */}
             <Card className="p-0">
-              <CardHeader className="justify-center">
-                <h1>Extra Ingredien tPrices</h1>
+              <CardHeader
+                className="justify-center cursor-pointer hover:bg-blue-50"
+                onClick={() => setIngredientDisplay(!IngredientDisplay)}
+              >
+                <ChevronDown />
+                <h1>Extra Ingredient Prices</h1>
               </CardHeader>
               <Divider />
-              <CardBody className="bg-green-50">
+              <CardBody
+                className={`bg-green-50 ${
+                  IngredientDisplay ? "block" : "hidden"
+                } `}
+              >
                 <Button
                   color="success"
                   size={"md"}
                   variant="shadow"
-                  type="submit"
                   className="my-1 disabled:bg-gray-500  mx-auto"
                   disabled={formik.isSubmitting}
                   onClick={() => addIngredientField()}
@@ -377,6 +413,8 @@ export default function MenuItemTab({ user }) {
                         index={index}
                         setExtraIngredientPrices={setExtraIngredientPrices}
                         extraIngredientPrices={extraIngredientPrices}
+                        selectedMenu={selectedMenu}
+                        setSelectedMenu={setSelectedMenu}
                       />
                     ))
                   : extraIngredientPrices?.map((size, index) => (
@@ -391,17 +429,44 @@ export default function MenuItemTab({ user }) {
               </CardBody>
               <Divider />
             </Card>
+            <div className="flex flex-col gap-3  md:flex-row ">
+              {Object.keys(selectedMenu).length > 0 && (
+                <>
+                  <Button
+                    color="danger"
+                    size={"lg"}
+                    variant="shadow"
+                    type="submit"
+                    className="my-3 disabled:bg-gray-500 mx-auto w-full"
+                    disabled={formik.isSubmitting}
+                  >
+                    Update
+                  </Button>
 
-            <Button
-              color="danger"
-              size={"lg"}
-              variant="shadow"
-              type="submit"
-              className="my-3 disabled:bg-gray-500 "
-              disabled={formik.isSubmitting}
-            >
-              Save
-            </Button>
+                  <Button
+                    color="secondary"
+                    size={"lg"}
+                    variant="shadow"
+                    className="my-3 disabled:bg-gray-500 mx-auto  w-full"
+                    disabled={formik.isSubmitting}
+                    onPress={() => setSelectedMenu({})}
+                  >
+                    Clear
+                  </Button>
+                </>
+              )}
+
+              <Button
+                color="success"
+                size={"lg"}
+                variant="shadow"
+                type="submit"
+                className="my-3 disabled:bg-gray-500 mx-auto  w-full"
+                disabled={formik.isSubmitting}
+              >
+                Save
+              </Button>
+            </div>
           </form>
         </div>
       </section>

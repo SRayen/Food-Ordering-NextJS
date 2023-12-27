@@ -1,18 +1,34 @@
 import React from "react";
 import { Input, Button } from "@nextui-org/react";
-import { DeleteIcon } from "@/components/ui/DeleteIcon";
+import { DeleteIcon } from "@/components/icons/DeleteIcon";
 export default function ExtraIngredientPricesForm({
   formik,
   index,
   setExtraIngredientPrices,
   extraIngredientPrices,
+  selectedMenu,
+  setSelectedMenu,
 }) {
   const deleteField = () => {
-    const newExtraIngredientPrices = extraIngredientPrices.filter(
-      (extraIngredientPrice) =>
-        extraIngredientPrices.indexOf(extraIngredientPrice) !== index
-    );
-    setExtraIngredientPrices(newExtraIngredientPrices);
+    if (selectedMenu?.extraIngredientPrices) {
+      const newExtraIngredientPrices =
+        selectedMenu.extraIngredientPrices.filter(
+          (extraIngredientPrice) =>
+            selectedMenu.extraIngredientPrices.indexOf(extraIngredientPrice) !==
+            index
+        );
+
+      setSelectedMenu({
+        ...selectedMenu,
+        extraIngredientPrices: newExtraIngredientPrices,
+      });
+    } else {
+      const newExtraIngredientPrices = extraIngredientPrices.filter(
+        (extraIngredientPrice) =>
+          extraIngredientPrices.indexOf(extraIngredientPrice) !== index
+      );
+      setExtraIngredientPrices(newExtraIngredientPrices);
+    }
   };
   return (
     <div className="flex flex-col md:flex-row gap-2 justify-between items-center w-full md:flex-nowrap  mt-6">
