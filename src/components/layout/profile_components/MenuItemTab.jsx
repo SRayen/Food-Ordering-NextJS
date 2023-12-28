@@ -36,7 +36,15 @@ export default function MenuItemTab({ user }) {
 
   const [sizeDisplay, setSizeDisplay] = useState(false);
 
+  const [enable, setEnable] = useState(false);
+
   const [IngredientDisplay, setIngredientDisplay] = useState(false);
+
+  const [first, setfirst] = useState({
+    itemName: selectedMenu?.name,
+    description: selectedMenu?.description,
+    basePrice: selectedMenu?.basePrice,
+  });
 
   const fetcher = async () => {
     const response = await axios.get("/api/category");
@@ -90,8 +98,47 @@ export default function MenuItemTab({ user }) {
     }
   };
 
+  // Update Menu item
+  const updateMenuItem = async (id) => {
+    const {
+      itemName,
+      description,
+      basePrice,
+      sizes,
+      category,
+      extraIngredientPrices,
+    } = formik?.values;
+
+    try {
+      const response = await axios.put(`/api/menu/${id}`, {
+        name: itemName,
+        description: description,
+        image: menuImage && menuImage,
+        category: category,
+        basePrice: basePrice,
+        sizes: sizes,
+        extraIngredientPrices: extraIngredientPrices,
+      });
+
+      if (response.status === 200) {
+        toast.success("Category has been updated successfully!");
+        mutate("menuItems");
+        setSaved(!saved);
+        formik.resetForm();
+        setSelectedMenu({});
+      } else {
+        const errorData = response.data;
+        setApiError(errorData.message);
+      }
+    } catch (error) {
+      error?.response?.data?.message
+        ? setApiError(error.response.data.message)
+        : setApiError("An unexpected error occurred. Please try again later.");
+    }
+  };
+
   const formik = useFormik({
-    enableReinitialize: true, //to enable reinitialization
+    enableReinitialize: enable, //to enable reinitialization //Rq:here enable is a state (true when an item is selected)
     initialValues: {
       itemName: selectedMenu?.name,
       description: selectedMenu?.description,
@@ -214,7 +261,7 @@ export default function MenuItemTab({ user }) {
                   size={40}
                 />
               }
-              src={selectedMenu?.image ? selectedMenu?.image : menuImage}
+              src={menuImage}
             />
 
             <label>
@@ -301,23 +348,24 @@ export default function MenuItemTab({ user }) {
 
                 <div className="flex flex-col gap-5">
                   {/* categories */}
-                  <Select
-                    label="Select a category"
-                    className="max-w-xs"
-                    id="category"
-                    name="category"
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    disabled={formik.isSubmitting}
-                    value={formik.values.category}
-                    defaultSelectedKeys={[selectedMenu?.category]}
-                  >
-                    {categories?.map((category) => (
-                      <SelectItem key={category._id} value={category._id}>
-                        {category.name}
-                      </SelectItem>
-                    ))}
-                  </Select>
+                  <div className="flex gap-6 items-center">
+                    <label htmlFor="category">Category:</label>
+                    <select
+                      // value={formik.values.category}
+                      value={selectedMenu?.category?._id}
+                      id="category"
+                      name="category"
+                      onChange={formik.handleChange}
+                      className="border p-3 rounded-lg bg-gray-50 hover:to-blue-50 cursor-pointer"
+                    >
+                      {categories?.length > 0 &&
+                        categories?.map((category) => (
+                          <option key={category._id} value={category._id}>
+                            {category.name}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -436,9 +484,9 @@ export default function MenuItemTab({ user }) {
                     color="danger"
                     size={"lg"}
                     variant="shadow"
-                    type="submit"
                     className="my-3 disabled:bg-gray-500 mx-auto w-full"
                     disabled={formik.isSubmitting}
+                    onPress={() => updateMenuItem(selectedMenu._id)}
                   >
                     Update
                   </Button>
@@ -473,7 +521,13 @@ export default function MenuItemTab({ user }) {
 
       {/* List of Menus */}
       <section className="mt-5 w-full mx-auto font-semibold">
-        <MenuList setSelectedMenu={setSelectedMenu} />
+        <MenuList
+          setSelectedMenu={setSelectedMenu}
+          setEnable={setEnable}
+          setApiError={setApiError}
+          formik={formik}
+          toast={toast}
+        />
       </section>
     </>
   );
