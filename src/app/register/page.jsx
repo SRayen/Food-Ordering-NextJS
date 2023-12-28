@@ -52,6 +52,7 @@ export default function RegisterPage() {
           toast.success("Registration successful!");
           setCreated(!created);
           formik.resetForm();
+          formik.setFieldValue("confirm_password", "");
         } else {
           const errorData = response.data;
           setApiError(errorData.message);
