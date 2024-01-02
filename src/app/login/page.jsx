@@ -12,13 +12,14 @@ import { EyeFilledIcon } from "@/components/icons/EyeFilledIcon";
 import Loading from "@/app/loading";
 import Link from "next/link";
 import { signIn, useSession } from "next-auth/react";
-
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 export default function LoginPage() {
+  const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const [apiError, setApiError] = useState("");
   const [created, setCreated] = useState(false);
 
   const session = useSession();
@@ -40,7 +41,17 @@ export default function LoginPage() {
     }),
     onSubmit: async (values) => {
       const { email, password } = values;
-      await signIn("credentials", { email, password, callbackUrl: "/" });
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      if (res?.error) {
+        toast.error("Invalid email or password");
+        if (res?.url) router.replace("/");
+      } else {
+        router.push("/");
+      }
     },
   });
 
@@ -48,17 +59,7 @@ export default function LoginPage() {
     <section className="mt-14 max-w-md mx-auto">
       <h1 className="text-center text-primary text-4xl my-2">Login</h1>
       {status === "loading" && <Loading />}
-      {created && (
-        <p className="text-center mt-6 text-lg font-poppins font-bold">
-          User created. Now you can &nbsp;
-          <Link
-            href={"/login"}
-            className="underline text-warning hover:text-green-800 cursor-pointer"
-          >
-            Login &raquo;
-          </Link>
-        </p>
-      )}
+
       <form onSubmit={formik.handleSubmit}>
         <div className="flex flex-col justify-between w-full md:flex-nowrap  mt-8 mx-2">
           <div className="flex flex-col gap-5">
@@ -112,14 +113,6 @@ export default function LoginPage() {
               <div className="text-red-500">{formik.errors.password}</div>
             ) : null}
           </div>
-
-          {/* Loading and Error handling */}
-          {formik.isSubmitting && (
-            <span className="mr-2">
-              <Loading />
-            </span>
-          )}
-          {apiError && <div className="text-red-500 mx-auto">{apiError}</div>}
 
           <Button
             color="danger"

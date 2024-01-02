@@ -37,7 +37,7 @@ export default function RegisterPage() {
         .email("Invalid email format")
         .required("Required field"),
       password: Yup.string()
-        .min(8, "Phone number must be at least 8 characters")
+        .min(8, "Password must be at least 8 characters")
         .required("Required field"),
       confirm_password: Yup.string()
         .label("confirm password")

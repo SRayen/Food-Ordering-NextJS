@@ -8,6 +8,7 @@ import ProfileTab from "@/components/layout/profile_components/ProfileTab";
 import CategoriesTab from "@/components/layout/profile_components/CategoriesTab";
 import MenuItemTab from "@/components/layout/profile_components/MenuItemTab";
 import useSWR from "swr";
+import Error from "@/app/Error";
 export default function ProfilePage() {
   const session = useSession();
 
@@ -42,7 +43,7 @@ export default function ProfilePage() {
     },
   ];
 
-  if (error) return <div>failed to load</div>;
+  if (error) return <Error />;
   if (isLoading) return <Loading />;
   return (
     <>
