@@ -6,6 +6,8 @@ import axios from "axios";
 import { Card, CardBody } from "@nextui-org/react";
 import useSWR from "swr";
 import ProfileTab from "./ProfileTab";
+import Loading from "@/app/loading";
+import Error from "@/app/error";
 export default function UsersTab() {
   const session = useSession();
 
@@ -17,6 +19,9 @@ export default function UsersTab() {
   };
   // Get categories data from server with SWR
   const { data: users, error, isLoading } = useSWR("users", fetcher);
+
+  if (error) return <Error />;
+  if (isLoading) return <Loading />;
   return (
     <>
       <section className="mt-5 w-full mx-auto font-semibold">

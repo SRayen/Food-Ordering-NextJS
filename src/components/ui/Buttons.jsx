@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { Avatar } from "@nextui-org/react";
 import useSWR from "swr";
 import axios from "axios";
+import { useUserStore } from "@/store/zustand";
 export default function Buttons() {
   const session = useSession();
   const { status } = session;
@@ -15,9 +16,8 @@ export default function Buttons() {
 
   // Get categories data from server with SWR
   const { data: user, error, isLoading } = useSWR("user", fetcher);
-
-
-
+  const setUser = useUserStore((state) => state.setUser);
+  setUser(user);
   const userImage = user?.image;
 
   let userName = user?.name || user?.email;

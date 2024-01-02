@@ -16,6 +16,7 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { mutate } from "swr";
+import { useUserStore } from "@/store/zustand";
 export default function ProfileTab({ user }) {
   const session = useSession();
   const [apiError, setApiError] = useState("");
@@ -27,7 +28,10 @@ export default function ProfileTab({ user }) {
   useEffect(() => {
     setNewUserImage("");
   }, [user?.image]);
-  console.log("user=====>", user);
+
+  const currentUser = useUserStore((state) => state.user);
+
+  console.log("currentUser=====>", currentUser);
   const handleFileChange = async (e) => {
     const file = e?.target?.files[0];
     setImageFile(file);
@@ -324,7 +328,7 @@ export default function ProfileTab({ user }) {
                 ) : null}
               </div>
             </div>
-            {user?.admin && (
+            {currentUser?.admin && (
               <Checkbox
                 type="checkbox"
                 id="isAdmin"
