@@ -22,7 +22,6 @@ export default function UsersTab() {
     const response = await axios.get("/api/users");
     return response.data;
   };
-  console.log("user from tab users===>", user);
   // Get categories data from server with SWR
   const { data: users, error, isLoading } = useSWR("users", fetcher);
   return (
