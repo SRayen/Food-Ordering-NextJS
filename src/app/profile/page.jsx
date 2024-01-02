@@ -8,7 +8,7 @@ import ProfileTab from "@/components/layout/profile_components/ProfileTab";
 import CategoriesTab from "@/components/layout/profile_components/CategoriesTab";
 import MenuItemTab from "@/components/layout/profile_components/MenuItemTab";
 import useSWR from "swr";
-import Error from "@/app/Error";
+import Error from "@/app/error";
 export default function ProfilePage() {
   const session = useSession();
 
