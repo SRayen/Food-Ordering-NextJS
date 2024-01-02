@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 export const useUserStore = create((set) => ({
-  user,
+  user: undefined,
   setUser: (user) =>
     set((state) => {
       return { ...state, user };
