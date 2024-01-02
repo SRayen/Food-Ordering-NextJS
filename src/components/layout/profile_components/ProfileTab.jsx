@@ -13,32 +13,24 @@ import toast from "react-hot-toast";
 import { Card, CardBody } from "@nextui-org/react";
 export default function ProfileTab({ user }) {
   const session = useSession();
-
   const [apiError, setApiError] = useState("");
   const [saved, setSaved] = useState(false);
   const [imagefile, setImageFile] = useState(null);
 
-  const [userImage, setUserImage] = useState(session?.data?.user?.image);
-  const [userName, setUserName] = useState(session?.data?.user?.name);
-
-  useEffect(() => {
-    if (session.status === "authenticated") {
-      setUserName(session?.data?.user?.name);
-      setUserImage(session?.data?.user?.image);
-    }
-  }, [session.status, session?.data?.user?.image, session?.data?.user?.name]);
+  const [newUserImage, setNewUserImage] = useState("");
+  const [userName, setUserName] = useState(user?.name);
 
   const handleFileChange = async (e) => {
     const file = e?.target?.files[0];
     setImageFile(file);
     if (file) {
-      setUserImage(URL.createObjectURL(file));
+      setNewUserImage(URL.createObjectURL(file));
     }
   };
   const formik = useFormik({
     enableReinitialize: true, //to enable reinitialization
     initialValues: {
-      user_name: userName,
+      user_name: user?.name,
       phone_number: user?.phone,
       street_address: user?.streetAddress,
       postal_code: user?.postalCode,
@@ -97,7 +89,7 @@ export default function ProfileTab({ user }) {
         country,
       } = values;
       try {
-        const response = await axios.put("/api/profile", {
+        const response = await axios.put(`/api/profile/${user?._id}`, {
           user_name: user_name,
           image: imageURL,
           phone: phone_number,
@@ -110,7 +102,7 @@ export default function ProfileTab({ user }) {
         if (response.status === 200) {
           toast.success("Data has been updated successfully!");
           setSaved(!saved);
-          window.location.reload();
+          // window.location.reload();
         } else {
           const errorData = response.data;
           setApiError(errorData.message);
@@ -133,7 +125,7 @@ export default function ProfileTab({ user }) {
   if (status === "unauthenticated") {
     return redirect("/login");
   }
-  const userEmail = session?.data?.user?.email;
+  const userEmail = user?.email;
 
   return (
     <section className="mt-5 w-full mx-auto font-semibold">
@@ -153,7 +145,7 @@ export default function ProfileTab({ user }) {
           <Avatar
             isBordered
             radius="md"
-            src={userImage}
+            src={newUserImage ? newUserImage : user?.image}
             className="w-20 h-30 text-large"
           />
 
