@@ -3,14 +3,24 @@ import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Avatar } from "@nextui-org/react";
-
+import useSWR from "swr";
+import axios from "axios";
 export default function Buttons() {
   const session = useSession();
-  const userImage = session?.data?.user?.image;
   const { status } = session;
+  const fetcher = async () => {
+    const response = await axios.get("/api/profile");
+    return response.data;
+  };
 
-  const userData = session.data?.user;
-  let userName = userData?.name || userData?.email;
+  // Get categories data from server with SWR
+  const { data: user, error, isLoading } = useSWR("user", fetcher);
+
+
+
+  const userImage = user?.image;
+
+  let userName = user?.name || user?.email;
   if (userName?.includes(" ")) {
     userName = userName.split(" ")[0];
   }

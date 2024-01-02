@@ -1,17 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
-import Loading from "@/app/loading";
-import { redirect } from "next/navigation";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { Button, user } from "@nextui-org/react";
-import { Input } from "@nextui-org/react";
-import { Avatar } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import axios from "axios";
-import toast from "react-hot-toast";
 import { Card, CardBody } from "@nextui-org/react";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import ProfileTab from "./ProfileTab";
 export default function UsersTab() {
   const session = useSession();
@@ -22,7 +15,6 @@ export default function UsersTab() {
     const response = await axios.get("/api/users");
     return response.data;
   };
-  console.log("user from tab users===>", user);
   // Get categories data from server with SWR
   const { data: users, error, isLoading } = useSWR("users", fetcher);
   return (

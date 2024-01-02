@@ -5,12 +5,17 @@ import Loading from "@/app/loading";
 import { redirect } from "next/navigation";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { Button } from "@nextui-org/react";
-import { Input } from "@nextui-org/react";
-import { Avatar } from "@nextui-org/react";
+import {
+  Button,
+  Checkbox,
+  Input,
+  Avatar,
+  Card,
+  CardBody,
+} from "@nextui-org/react";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Card, CardBody } from "@nextui-org/react";
+import { mutate } from "swr";
 export default function ProfileTab({ user }) {
   const session = useSession();
   const [apiError, setApiError] = useState("");
@@ -18,8 +23,11 @@ export default function ProfileTab({ user }) {
   const [imagefile, setImageFile] = useState(null);
 
   const [newUserImage, setNewUserImage] = useState("");
-  const [userName, setUserName] = useState(user?.name);
 
+  useEffect(() => {
+    setNewUserImage("");
+  }, [user?.image]);
+  console.log("user=====>", user);
   const handleFileChange = async (e) => {
     const file = e?.target?.files[0];
     setImageFile(file);
@@ -87,6 +95,7 @@ export default function ProfileTab({ user }) {
         postal_code,
         city,
         country,
+        isAdmin,
       } = values;
       try {
         const response = await axios.put(`/api/profile/${user?._id}`, {
@@ -97,10 +106,12 @@ export default function ProfileTab({ user }) {
           postalCode: postal_code,
           city,
           country,
+          isAdmin,
         });
 
         if (response.status === 200) {
           toast.success("Data has been updated successfully!");
+          mutate("user");
           setSaved(!saved);
           // window.location.reload();
         } else {
@@ -313,6 +324,19 @@ export default function ProfileTab({ user }) {
                 ) : null}
               </div>
             </div>
+            {user?.admin && (
+              <Checkbox
+                type="checkbox"
+                id="isAdmin"
+                name="isAdmin"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.isAdmin}
+                isSelected={formik.values.isAdmin}
+              >
+                Admin
+              </Checkbox>
+            )}
 
             {/* Loading and Error handling */}
             {formik.isSubmitting && (
