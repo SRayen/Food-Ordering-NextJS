@@ -30,8 +30,6 @@ export default function ProfileTab({ user }) {
   }, [user?.image]);
 
   const currentUser = useUserStore((state) => state.user);
-
-  console.log("currentUser=====>", currentUser);
   const handleFileChange = async (e) => {
     const file = e?.target?.files[0];
     setImageFile(file);
