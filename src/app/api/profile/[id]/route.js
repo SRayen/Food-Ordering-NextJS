@@ -20,6 +20,7 @@ export async function PUT(req) {
     const hasNewCity = !!body?.city;
     const hasNewCountry = !!body?.country;
     const hasNewUserName = !!body?.user_name;
+    const isAdmin = !!body?.isAdmin;
 
     const updateFields = {
       ...(hasNewUserName && { name: body.user_name }),
@@ -29,6 +30,7 @@ export async function PUT(req) {
       ...(hasNewPostalCode && { postalCode: body.postalCode }),
       ...(hasNewCity && { city: body.city }),
       ...(hasNewCountry && { country: body.country }),
+      ...(isAdmin ? { admin: true } : { admin: false }),
     };
 
     const user = await User.findByIdAndUpdate(id, updateFields, {
