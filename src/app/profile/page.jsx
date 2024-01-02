@@ -7,6 +7,7 @@ import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import ProfileTab from "@/components/layout/profile_components/ProfileTab";
 import CategoriesTab from "@/components/layout/profile_components/CategoriesTab";
 import MenuItemTab from "@/components/layout/profile_components/MenuItemTab";
+import UsersTab from "@/components/layout/profile_components/UsersTab";
 import useSWR from "swr";
 import Error from "@/app/error";
 export default function ProfilePage() {
@@ -39,7 +40,7 @@ export default function ProfilePage() {
     {
       id: "Users",
       label: "Users",
-      content: <ProfileTab user={user} />,
+      content: <UsersTab />,
     },
   ];
 
