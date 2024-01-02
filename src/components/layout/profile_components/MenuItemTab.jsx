@@ -351,7 +351,6 @@ export default function MenuItemTab({ user }) {
                   <div className="flex gap-6 items-center">
                     <label htmlFor="category">Category:</label>
                     <select
-                      // value={formik.values.category}
                       value={selectedMenu?.category?._id}
                       id="category"
                       name="category"

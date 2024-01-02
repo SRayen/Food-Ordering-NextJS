@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
@@ -6,7 +7,6 @@ import { Avatar } from "@nextui-org/react";
 export default function Buttons() {
   const session = useSession();
   const userImage = session?.data?.user?.image;
-
   const { status } = session;
 
   const userData = session.data?.user;
