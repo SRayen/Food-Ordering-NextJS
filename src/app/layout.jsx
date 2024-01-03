@@ -24,7 +24,7 @@ export default async function RootLayout({ children }) {
   const session = await getServerSession();
 
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body className={`${roboto.className} ${poppins.variable}`}>
         <SessionProvider session={session}>
           <main className="max-w-4xl border mx-auto py-4 px-2">

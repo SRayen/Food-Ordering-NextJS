@@ -1,12 +1,13 @@
 "use client";
 import React, { useState } from "react";
 import axios from "axios";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 import { Card, CardBody, CardFooter, Image } from "@nextui-org/react";
 import Loading from "@/app/loading";
 import Error from "@/app/error";
 import { DeleteIcon } from "@/components/icons/DeleteIcon";
 import { Modal } from "antd";
+import { useMenuItems } from "@/Hooks/useMenuItems";
 export default function MenuList({
   setSelectedMenu,
   setApiError,
@@ -16,13 +17,8 @@ export default function MenuList({
   setMenuImage,
 }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const fetcher = async () => {
-    const response = await axios.get("/api/menu");
-    return response.data;
-  };
 
-  // Get categories data from server with SWR
-  const { data: menuItems, error, isLoading } = useSWR("menuItems", fetcher);
+  const { menuItems, error, isLoading } = useMenuItems();
 
   if (error) return <Error />;
   if (isLoading) return <Loading />;

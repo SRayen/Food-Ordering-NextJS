@@ -8,8 +8,12 @@ export default function Home() {
     <>
       <Hero />
       <HomeMenu />
-      <AboutUs />
-      <ContactUs />
+      <div id="about">
+        <AboutUs />
+      </div>
+      <div id="contact">
+        <ContactUs />
+      </div>
     </>
   );
 }

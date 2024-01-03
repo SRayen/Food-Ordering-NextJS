@@ -12,7 +12,6 @@ export default function HomeMenu() {
   };
 
   const { data: menuItems, error, isLoading } = useSWR("menuItems", fetcher);
-  console.log("menu===>", menuItems);
   return (
     <section className="">
       <div className="flex justify-between -mx-14 -mt-14 ">
