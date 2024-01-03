@@ -13,6 +13,7 @@ export default function MenuList({
   formik,
   toast,
   setEnable,
+  setMenuImage,
 }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   const [menuItemToDelete, setMenuItemToDeleteToDelete] = useState({});
@@ -65,6 +66,7 @@ export default function MenuList({
               onPress={() => {
                 setSelectedMenu(item);
                 setEnable(true);
+                setMenuImage("");
               }}
             >
               <CardBody className="overflow-visible p-0">

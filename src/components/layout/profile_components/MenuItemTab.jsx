@@ -16,8 +16,7 @@ import {
   CardHeader,
   Avatar,
   Input,
-  Select,
-  SelectItem,
+  Textarea,
 } from "@nextui-org/react";
 import { CameraIcon } from "@/components/icons/CameraIcon";
 import SizesForm from "@/components/layout/profile_components/menu_comonents/SizesForm";
@@ -32,19 +31,13 @@ export default function MenuItemTab({ user }) {
   const [saved, setSaved] = useState(false);
   const [imagefile, setImageFile] = useState(null);
 
-  const [menuImage, setMenuImage] = useState(null);
+  const [menuImage, setMenuImage] = useState("");
 
   const [sizeDisplay, setSizeDisplay] = useState(false);
 
   const [enable, setEnable] = useState(false);
 
   const [IngredientDisplay, setIngredientDisplay] = useState(false);
-
-  const [first, setfirst] = useState({
-    itemName: selectedMenu?.name,
-    description: selectedMenu?.description,
-    basePrice: selectedMenu?.basePrice,
-  });
 
   const fetcher = async () => {
     const response = await axios.get("/api/category");
@@ -261,7 +254,7 @@ export default function MenuItemTab({ user }) {
                   size={40}
                 />
               }
-              src={menuImage}
+              src={menuImage ? menuImage : selectedMenu?.image}
             />
 
             <label>
@@ -304,7 +297,8 @@ export default function MenuItemTab({ user }) {
 
                 <div className="flex flex-col gap-5">
                   {/* description */}
-                  <Input
+                  <Textarea
+                    minRows={3}
                     type="text"
                     label="Description"
                     placeholder="Description"
@@ -526,6 +520,7 @@ export default function MenuItemTab({ user }) {
           setApiError={setApiError}
           formik={formik}
           toast={toast}
+          setMenuImage={setMenuImage}
         />
       </section>
     </>
