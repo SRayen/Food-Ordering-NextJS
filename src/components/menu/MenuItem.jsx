@@ -8,7 +8,7 @@ export default function MenuItem({
   description,
 }) {
   return (
-    <div className="bg-gray-300 mx-auto  w-72 p-4 rounded-lg text-center flex flex-col items-center cursor-pointer hover:bg-white hover:shadow-md hover:shadow-black/25 transition-all">
+    <div className="bg-gray-300 mx-auto  w-72 p-4 rounded-lg text-center flex flex-col justify-between items-center cursor-pointer hover:bg-white hover:shadow-md hover:shadow-black/25 transition-all">
       <div className="h-52 w-48 relative">
         <Image src={image} layout={"fill"} objectFit={"contain"} alt={""} />
       </div>

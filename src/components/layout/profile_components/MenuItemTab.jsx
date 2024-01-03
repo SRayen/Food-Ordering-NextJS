@@ -127,7 +127,7 @@ export default function MenuItemTab({ user }) {
       extraIngredientPrices,
     } = formik?.values;
 
-    const imageURL =menuImage &&  await uploadImage() 
+    const imageURL = menuImage && (await uploadImage());
     try {
       const response = await axios.put(`/api/menu/${id}`, {
         name: itemName,
@@ -171,6 +171,8 @@ export default function MenuItemTab({ user }) {
       itemName: Yup.string().required("Required field"),
       description: Yup.string().required("Required field"),
       basePrice: Yup.number().positive().required("Required field"),
+      category: Yup.string()
+      .required("Category is required"),
     }),
     onSubmit: async (values) => {
       setApiError("");
@@ -200,6 +202,9 @@ export default function MenuItemTab({ user }) {
           toast.success("Data has been saved successfully!");
           setSaved(!saved);
           formik.resetForm();
+          formik.setFieldValue("itemName", "");
+          formik.setFieldValue("description", "");
+          formik.setFieldValue("basePrice", "");
           mutate("menuItems");
           setMenuImage("");
           // window.location.reload();
@@ -353,14 +358,22 @@ export default function MenuItemTab({ user }) {
                       onChange={formik.handleChange}
                       className="border p-3 rounded-lg bg-gray-50 hover:to-blue-50 cursor-pointer"
                     >
+                      <option value="">--Please choose an option--</option>
                       {categories?.length > 0 &&
-                        categories?.map((category) => (
-                          <option key={category._id} value={category._id}>
-                            {category.name}
-                          </option>
-                        ))}
+                        categories?.map((category) => {
+                          return (
+                            <>
+                              <option key={category._id} value={category._id}>
+                                {category.name}
+                              </option>
+                            </>
+                          );
+                        })}
                     </select>
                   </div>
+                  {formik.touched.category && formik.errors.category ? (
+                    <div className="text-red-500">{formik.errors.category}</div>
+                  ) : null}
                 </div>
               </div>
 

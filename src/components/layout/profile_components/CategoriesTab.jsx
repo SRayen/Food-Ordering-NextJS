@@ -23,8 +23,9 @@ import {
 import { EditIcon } from "@/components/icons/EditIcon";
 import { DeleteIcon } from "@/components/icons/DeleteIcon";
 import { Modal } from "antd";
-import useSWR, { mutate } from "swr";
+import { mutate } from "swr";
 import Error from "@/app/error";
+import { useCategories } from "@/Hooks/useCategories";
 
 export default function CategoriesTab({ user }) {
   const session = useSession();
@@ -37,13 +38,7 @@ export default function CategoriesTab({ user }) {
   const [categorieToEdit, setCategorieToEdit] = useState({});
   const [categorieToDelete, setCategorieToDelete] = useState({});
 
-  const fetcher = async () => {
-    const response = await axios.get("/api/category");
-    return response.data;
-  };
-
-  // Get categories data from server with SWR
-  const { data: categories, error, isLoading } = useSWR("categories", fetcher);
+  const { categories, error, isLoading } = useCategories();
 
   const updateCategory = async (id) => {
     try {
