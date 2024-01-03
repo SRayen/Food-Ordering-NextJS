@@ -16,7 +16,6 @@ export default function MenuList({
   setMenuImage,
 }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
-  const [menuItemToDelete, setMenuItemToDeleteToDelete] = useState({});
   const fetcher = async () => {
     const response = await axios.get("/api/menu");
     return response.data;
@@ -56,11 +55,11 @@ export default function MenuList({
       <h1>MenuList</h1>
       <h2></h2>
 
-      <div className="gap-2 grid grid-cols-2 sm:grid-cols-4 p-2 ">
+      <div className="gap-2 grid grid-cols-1 sm:grid-cols-3 p-2 ">
         {menuItems.map((item, index) => (
           <div key={index}>
             <Card
-              className=" w-36 md:w-40"
+              className="mx-auto w-64 h-64 sm:w-44 md:w-60"
               shadow="sm"
               isPressable
               onPress={() => {
