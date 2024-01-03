@@ -10,9 +10,12 @@ import MenuItemTab from "@/components/layout/profile_components/MenuItemTab";
 import UsersTab from "@/components/layout/profile_components/UsersTab";
 import useSWR from "swr";
 import Error from "@/app/error";
+import { redirect } from "next/navigation";
 export default function ProfilePage() {
   const session = useSession();
-
+  if (session.status==="unauthenticated") {
+    redirect("/login");
+  }
   const fetcher = async () => {
     const response = await axios.get("/api/profile");
     return response.data;
