@@ -1,14 +1,23 @@
+"use client";
 import Image from "next/image";
 import MenuItem from "../menu/MenuItem";
 import SectionHeaders from "./SectionHeaders";
-
+import useSWR, { mutate } from "swr";
+import axios from "axios";
 export default function HomeMenu() {
+  const fetcher = async () => {
+    const response = await axios.get("/api/menu");
+    const latestMenuItems = response.data.slice(-3);
+    return latestMenuItems;
+  };
+
+  const { data: menuItems, error, isLoading } = useSWR("menuItems", fetcher);
+  console.log("menu===>", menuItems);
   return (
     <section className="">
       <div className="flex justify-between -mx-14 -mt-14 ">
         <div className="h-48 w-48 relative -z-10">
           <Image
-            // className=" -m-16 -z-10"
             src={"/sallad1.png"}
             layout={"fill"}
             objectFit={"contain"}
@@ -18,7 +27,6 @@ export default function HomeMenu() {
 
         <div className="h-48 w-48 -mt-16 -z-10 relative">
           <Image
-            //    className="right-0 -z-10"
             src={"/sallad2.png"}
             layout={"fill"}
             objectFit={"contain"}
@@ -28,16 +36,15 @@ export default function HomeMenu() {
       </div>
 
       <div className="text-center mb-4">
-        <SectionHeaders subHeader={"check out"} mainHeader={"Menu"} />
+        <SectionHeaders
+          subHeader={"check out"}
+          mainHeader={"Our Best Sellers"}
+        />
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
-        <MenuItem />
+      <div className="flex flex-col gap-3 md:flex-row">
+        {menuItems?.length > 0 &&
+          menuItems.map((item) => <MenuItem {...item} key={item._id} />)}
       </div>
     </section>
   );

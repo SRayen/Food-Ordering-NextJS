@@ -91,6 +91,31 @@ export default function MenuItemTab({ user }) {
     }
   };
 
+  const uploadImage = async () => {
+    let imageURL;
+    if (
+      imagefile &&
+      (imagefile.type === "image/jpeg" ||
+        imagefile.type === "image/jpg" ||
+        imagefile.type === "image/png")
+    ) {
+      const image = new FormData();
+      image.append("file", imagefile);
+      image.append("cloud_name", process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME); //From Cloudinary Account
+      image.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET); //From Cloudinary Account
+
+      //First Save Image to Cloudinary
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/ray-cloud/image/upload",
+        { method: "post", body: image }
+      );
+
+      const imgData = await response.json();
+      imageURL = imgData?.url?.toString();
+    }
+    return imageURL;
+  };
+
   // Update Menu item
   const updateMenuItem = async (id) => {
     const {
@@ -102,11 +127,12 @@ export default function MenuItemTab({ user }) {
       extraIngredientPrices,
     } = formik?.values;
 
+    const imageURL =menuImage &&  await uploadImage() 
     try {
       const response = await axios.put(`/api/menu/${id}`, {
         name: itemName,
         description: description,
-        image: menuImage && menuImage,
+        image: menuImage && imageURL,
         category: category,
         basePrice: basePrice,
         sizes: sizes,
@@ -149,31 +175,7 @@ export default function MenuItemTab({ user }) {
     onSubmit: async (values) => {
       setApiError("");
       // Upload Image:
-      let imageURL;
-      if (
-        imagefile &&
-        (imagefile.type === "image/jpeg" ||
-          imagefile.type === "image/jpg" ||
-          imagefile.type === "image/png")
-      ) {
-        const image = new FormData();
-        image.append("file", imagefile);
-        image.append(
-          "cloud_name",
-          process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-        ); //From Cloudinary Account
-        image.append("upload_preset", process.env.NEXT_PUBLIC_UPLOAD_PRESET); //From Cloudinary Account
-
-        //First Save Image to Cloudinary
-        const response = await fetch(
-          "https://api.cloudinary.com/v1_1/ray-cloud/image/upload",
-          { method: "post", body: image }
-        );
-
-        const imgData = await response.json();
-        imageURL = imgData?.url?.toString();
-      }
-
+      const imageURL = await uploadImage();
       const {
         itemName,
         description,
@@ -199,7 +201,7 @@ export default function MenuItemTab({ user }) {
           setSaved(!saved);
           formik.resetForm();
           mutate("menuItems");
-          setMenuImage(null);
+          setMenuImage("");
           // window.location.reload();
         } else {
           const errorData = response.data;
