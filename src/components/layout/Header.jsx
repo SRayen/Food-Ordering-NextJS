@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Navbar,
@@ -12,17 +12,23 @@ import {
   NavbarMenu,
 } from "@nextui-org/react";
 import Buttons from "@/components/ui/Buttons";
-
+import { useCartProductsStore } from "@/store/CartProductStore";
+import ShoppingCart from "@/components/icons/ShoppingCart";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const [count, setCount] = useState(0);
   const menuItems = [
     { title: "Home", href: "/" },
     { title: "Menu", href: "/menu" },
     { title: "About", href: "/#about" },
     { title: "Contact", href: "/#contact" },
   ];
-
+  const cartProducts = useCartProductsStore((state) => state.cartProducts);
+  //The use of useEffect is to prevent the hydration problem:
+  useEffect(() => {
+    setCount(cartProducts.length);
+  }, [cartProducts]);
+  console.log("ray cart ===>", cartProducts);
   return (
     <header className="flex items-center justify-between font-poppins font-xl">
       <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -40,7 +46,6 @@ export default function Header() {
             </Link>
           </NavbarBrand>
         </NavbarContent>
-
         {menuItems.map((item) => (
           <NavbarContent
             className="hidden sm:flex gap-4"
@@ -58,13 +63,11 @@ export default function Header() {
             </NavbarItem>
           </NavbarContent>
         ))}
-
         <NavbarContent justify="end">
           <NavbarItem className="hidden sm:flex gap-2">
             <Buttons />
           </NavbarItem>
         </NavbarContent>
-
         <NavbarMenu>
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={item.title}>
@@ -86,6 +89,13 @@ export default function Header() {
           ))}
           <Buttons />
         </NavbarMenu>
+
+        <Link href={"/cart"} className="relative">
+          <ShoppingCart />
+          <span className="absolute -top-2 -right-4 bg-primary text-white text-xs p-1 rounded-full leading-3">
+            {count}
+          </span>
+        </Link>
       </Navbar>
     </header>
   );

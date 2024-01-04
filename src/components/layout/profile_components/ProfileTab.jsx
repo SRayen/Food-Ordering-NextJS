@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 import toast from "react-hot-toast";
 import { mutate } from "swr";
-import { useUserStore } from "@/store/zustand";
+import { useUserStore } from "@/store/UserStore";
 export default function ProfileTab({ user }) {
   const session = useSession();
   const [apiError, setApiError] = useState("");
