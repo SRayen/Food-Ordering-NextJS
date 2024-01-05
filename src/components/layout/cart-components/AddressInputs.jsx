@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import Loading from "@/app/loading";
 import { Button, Input, Card, CardBody } from "@nextui-org/react";
 
-export default function AddressInputs({ user }) {
+export default function AddressInputs({ user, total }) {
   const formik = useFormik({
     enableReinitialize: true, //to enable reinitialization
     initialValues: {
@@ -26,38 +26,7 @@ export default function AddressInputs({ user }) {
       city: Yup.string(),
       country: Yup.string(),
     }),
-    onSubmit: async (values) => {
-      // setApiError("");
-      // const { phone_number, street_address, postal_code, city, country } =
-      //   values;
-      // try {
-      //   const response = await axios.put(`/api/profile/${user?._id}`, {
-      //     user_name: user_name,
-      //     image: imageURL,
-      //     phone: phone_number,
-      //     streetAddress: street_address,
-      //     postalCode: postal_code,
-      //     city,
-      //     country,
-      //     isAdmin,
-      //   });
-      //   if (response.status === 200) {
-      //     toast.success("Data has been updated successfully!");
-      //     mutate("user");
-      //     setSaved(!saved);
-      //     // window.location.reload();
-      //   } else {
-      //     const errorData = response.data;
-      //     setApiError(errorData.message);
-      //   }
-      // } catch (error) {
-      //   error?.response?.data?.message
-      //     ? setApiError(error.response.data.message)
-      //     : setApiError(
-      //         "An unexpected error occurred. Please try again later."
-      //       );
-      // }
-    },
+    onSubmit: async (values) => {},
   });
 
   return (
@@ -199,7 +168,7 @@ export default function AddressInputs({ user }) {
               className="my-10 disabled:bg-gray-500"
               disabled={formik.isSubmitting}
             >
-              Save
+              Pay $ {total}
             </Button>
           </div>
         </form>
