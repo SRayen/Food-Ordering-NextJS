@@ -48,11 +48,11 @@ export default function MenuItemTab({ user }) {
   const { data: categories, error, isLoading } = useSWR("categories", fetcher);
 
   const [sizes, setSizes] = useState(
-    selectedMenu?.sizes || [{ name: "", price: "" }]
+    selectedMenu?.sizes || []
   );
 
   const [extraIngredientPrices, setExtraIngredientPrices] = useState(
-    selectedMenu?.extraIngredientPrices || [{ name: "", price: "" }]
+    selectedMenu?.extraIngredientPrices || []
   );
 
   const addSizeField = () => {

@@ -22,6 +22,7 @@
     "next-auth": "^4.24.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-flying-item": "^1.1.3",
     "react-hot-toast": "^2.4.1",
     "swr": "^2.2.4",
     "yup": "^1.3.3",

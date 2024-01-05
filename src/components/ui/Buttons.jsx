@@ -5,7 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { Avatar } from "@nextui-org/react";
 import useSWR from "swr";
 import axios from "axios";
-import { useUserStore } from "@/store/zustand";
+import { useUserStore } from "@/store/UserStore";
 export default function Buttons() {
   const session = useSession();
   const { status } = session;
