@@ -117,18 +117,23 @@ export default function MenuItem(menuItem) {
                   ))}
                 </div>
               )}
-              <FlyingButton targetTop={"5%"} targetLeft={"95%"} src={image}>
-                <div
-                  className="primary sticky bottom-2"
-                  onClick={handleAddToCard}
+              <div className="flex justify-around items-center">
+                <FlyingButton targetTop={"5%"} targetLeft={"95%"} src={image}>
+                  <div
+                    className="primary sticky bottom-2 bg-primary text-white rounded-full px-6 py-2 hover:bg-red-500"
+                    onClick={handleAddToCard}
+                  >
+                    Add to cart ${selectedPrice}
+                  </div>
+                </FlyingButton>
+
+                <button
+                  className="bg-gray-500 text-white rounded-full px-6 py-2 hover:bg-red-500"
+                  onClick={() => setShowPopup(false)}
                 >
-                  Add to cart ${selectedPrice}
-                </div>
-              </FlyingButton>
-              
-              <button className="mt-2" onClick={() => setShowPopup(false)}>
-                Cancel
-              </button>
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>
