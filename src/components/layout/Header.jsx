@@ -28,7 +28,7 @@ export default function Header() {
   useEffect(() => {
     setCount(cartProducts.length);
   }, [cartProducts]);
-  console.log("ray cart ===>", cartProducts);
+
   return (
     <header className="flex items-center justify-between font-poppins font-xl">
       <Navbar onMenuOpenChange={setIsMenuOpen}>

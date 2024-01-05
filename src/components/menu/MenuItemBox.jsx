@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import FlyingButton from "react-flying-item";
 export default function MenuItemBox({ menuItem, handleAddToCard }) {
   const { name, description, image, basePrice } = menuItem;
   return (
@@ -10,12 +11,14 @@ export default function MenuItemBox({ menuItem, handleAddToCard }) {
 
       <h4 className="font-semibold my-2 text-xl">{name}</h4>
       <p className="text-gray-500 text-sm line-clamp-3">{description}</p>
-      <button
-        onClick={() => handleAddToCard()}
-        className="bg-primary text-white rounded-full px-6 py-2 mt-1"
-      >
-        Add to cart {basePrice} $
-      </button>
+      <FlyingButton targetTop={"5%"} targetLeft={"95%"} src={image}>
+        <button
+          onClick={() => handleAddToCard()}
+          className="bg-primary text-white rounded-full px-6 py-2 mt-1"
+        >
+          Add to cart {basePrice} $
+        </button>
+      </FlyingButton>
     </div>
   );
 }

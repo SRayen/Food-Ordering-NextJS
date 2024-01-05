@@ -2,6 +2,19 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+export function calctPrice(cartProduct, selectedSize, selectedExtras) {
+  let price = cartProduct.basePrice;
+  if (selectedSize) {
+    price += selectedSize.price;
+  }
+  if (selectedExtras?.length > 0) {
+    for (const extra of selectedExtras) {
+      price += extra.price;
+    }
+  }
+  return price;
+}
+
 export const useCartProductsStore = create(
   persist(
     (set, get) => ({
@@ -10,14 +23,20 @@ export const useCartProductsStore = create(
         set((state) => ({
           cartProducts: [
             ...state.cartProducts,
-            { ...product, size: selectedSize, extras: selectedExtras },
+            {
+              ...product,
+              size: selectedSize,
+              extras: selectedExtras,
+              product_price: calctPrice(product, selectedSize, selectedExtras),
+            },
           ],
         })),
+
       clearCart: () => set({ cartProducts: [] }),
-      deletedFromCart: (productId) =>
+      deletedFromCart: (indexToRemove) =>
         set((state) => ({
           cartProducts: state.cartProducts.filter(
-            (product) => product.id !== productId
+            (product, index) => index !== indexToRemove
           ),
         })),
     }),

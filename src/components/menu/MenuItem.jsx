@@ -1,10 +1,10 @@
 "use client";
 
 import { useCartProductsStore } from "@/store/CartProductStore";
-import toast from "react-hot-toast";
 import { useState } from "react";
 import MenuItemBox from "@/components/menu/MenuItemBox";
 import Image from "next/image";
+import FlyingButton from "react-flying-item";
 export default function MenuItem(menuItem) {
   const [showPopup, setShowPopup] = useState(false);
 
@@ -16,17 +16,15 @@ export default function MenuItem(menuItem) {
   const addToCart = useCartProductsStore((state) => state.addToCart);
 
   const handleAddToCard = async () => {
-    console.log("add to cart");
     const hasOptions = sizes.length > 0 || extraIngredientPrices.length > 0;
     if (hasOptions && !showPopup) {
       setShowPopup(true);
       return;
     }
-    console.log("selectedSize=>", selectedSize);
-    console.log("selectedExtras=>", selectedExtras);
+
     addToCart(menuItem, selectedSize, selectedExtras);
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log("hiding popup");
+
     setShowPopup(false);
   };
 
@@ -119,14 +117,15 @@ export default function MenuItem(menuItem) {
                   ))}
                 </div>
               )}
-              {/* <FlyingButton targetTop={"5%"} targetLeft={"95%"} src={image}> */}
-              <div
-                className="primary sticky bottom-2"
-                onClick={handleAddToCard}
-              >
-                Add to cart ${selectedPrice}
-              </div>
-              {/* </FlyingButton> */}
+              <FlyingButton targetTop={"5%"} targetLeft={"95%"} src={image}>
+                <div
+                  className="primary sticky bottom-2"
+                  onClick={handleAddToCard}
+                >
+                  Add to cart ${selectedPrice}
+                </div>
+              </FlyingButton>
+              
               <button className="mt-2" onClick={() => setShowPopup(false)}>
                 Cancel
               </button>
