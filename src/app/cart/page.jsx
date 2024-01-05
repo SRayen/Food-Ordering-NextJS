@@ -8,9 +8,7 @@ import { useEffect, useState } from "react";
 import { useCartProductsStore } from "@/store/CartProductStore";
 import { useUserStore } from "@/store/UserStore";
 export default function CartPage() {
-  //   const {cartProducts,removeCartProduct} = useContext(CartContext);
-  const [address, setAddress] = useState({});
-  //   const { data: profileData } = useProfile();
+
   const [cartProductsClient, setCartProductsClient] = useState([]);
 
   const cartProducts = useCartProductsStore((state) => state.cartProducts);
@@ -72,7 +70,7 @@ export default function CartPage() {
           </div>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg">
-          <AddressInputs user={user} />
+          <AddressInputs user={user} total={subtotal + 5} />
         </div>
       </div>
     </section>
