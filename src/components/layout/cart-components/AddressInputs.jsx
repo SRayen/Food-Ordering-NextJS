@@ -2,8 +2,12 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 import Loading from "@/app/loading";
 import { Button, Input, Card, CardBody } from "@nextui-org/react";
-
-export default function AddressInputs({ user, total }) {
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+export default function AddressInputs({ user, total, cartProductsClient }) {
+  const router = useRouter();
+  const [apiError, setApiError] = useState("");
   const formik = useFormik({
     enableReinitialize: true, //to enable reinitialization
     initialValues: {
@@ -26,7 +30,37 @@ export default function AddressInputs({ user, total }) {
       city: Yup.string(),
       country: Yup.string(),
     }),
-    onSubmit: async (values) => {},
+    onSubmit: async (values) => {
+      setApiError("");
+      const { phone_number, street_address, postal_code, city, country } =
+        values;
+
+      try {
+        const response = await axios.post("/api/checkout", {
+          phone_number,
+          street_address,
+          postal_code,
+          city,
+          country,
+          cartProductsClient,
+        });
+
+        if (response.status === 201) {
+          router.push(response.data);
+
+          formik.resetForm();
+        } else {
+          const errorData = response.data;
+          setApiError(errorData.message);
+        }
+      } catch (error) {
+        error?.response?.data?.message
+          ? setApiError(error.response.data.message)
+          : setApiError(
+              "An unexpected error occurred. Please try again later."
+            );
+      }
+    },
   });
 
   return (
@@ -159,6 +193,7 @@ export default function AddressInputs({ user, total }) {
                 <Loading />
               </span>
             )}
+            {apiError && <div className="text-red-500 mx-auto">{apiError}</div>}
 
             <Button
               color="danger"
