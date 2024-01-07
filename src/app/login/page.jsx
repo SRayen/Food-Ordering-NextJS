@@ -20,8 +20,6 @@ export default function LoginPage() {
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const [created, setCreated] = useState(false);
-
   const session = useSession();
 
   const { status } = session;

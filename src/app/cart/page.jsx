@@ -7,8 +7,8 @@ import CartProduct from "@/components/menu/CartProduct";
 import { useEffect, useState } from "react";
 import { useCartProductsStore } from "@/store/CartProductStore";
 import { useUserStore } from "@/store/UserStore";
+import toast from "react-hot-toast";
 export default function CartPage() {
-
   const [cartProductsClient, setCartProductsClient] = useState([]);
 
   const cartProducts = useCartProductsStore((state) => state.cartProducts);
@@ -20,6 +20,14 @@ export default function CartPage() {
   useEffect(() => {
     setCartProductsClient(cartProducts);
   }, [cartProducts]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (window.location.href.includes("canceled=1")) {
+        toast.error("Payment failed 😔");
+      }
+    }
+  }, []);
 
   let subtotal = 0;
   for (const p of cartProducts) {
@@ -70,7 +78,11 @@ export default function CartPage() {
           </div>
         </div>
         <div className="bg-gray-100 p-4 rounded-lg">
-          <AddressInputs user={user} total={subtotal + 5} />
+          <AddressInputs
+            user={user}
+            total={subtotal + 5}
+            cartProductsClient={cartProductsClient}
+          />
         </div>
       </div>
     </section>
