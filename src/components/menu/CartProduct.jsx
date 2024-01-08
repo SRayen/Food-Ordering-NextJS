@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function CartProduct({ product, onRemove }) {
   return (
-    <div className="flex items-center gap-4 border-b py-4 hover:bg-green-50 duration-150 ease-in-out">
+    <div className="flex items-center gap-4 border-b py-4 px-2 hover:bg-green-50 duration-150 ease-in-out">
       <div className="w-24">
         <Image width={240} height={240} src={product.image} alt={""} />
       </div>

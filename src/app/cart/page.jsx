@@ -2,7 +2,6 @@
 
 import AddressInputs from "@/components/layout/cart-components/AddressInputs";
 import SectionHeaders from "@/components/layout/SectionHeaders";
-import CartProduct from "@/components/menu/CartProduct";
 import { useEffect, useState } from "react";
 import { useCartProductsStore } from "@/store/CartProductStore";
 import { useUserStore } from "@/store/UserStore";
@@ -55,6 +54,7 @@ export default function CartPage() {
         />
         <div className="bg-gray-100 p-4 rounded-lg">
           <AddressInputs
+            disabled={false}
             user={user}
             total={subtotal + 5}
             cartProductsClient={cartProductsClient}
