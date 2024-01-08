@@ -15,7 +15,7 @@ export default function ProductsList({
           <CartProduct
             key={index}
             product={product}
-            onRemove={() => deletedFromCart(index)}
+            onRemove={!!deletedFromCart && (() => deletedFromCart(index))}
           />
         ))}
       <div className="py-2 pr-16 flex justify-end items-center">

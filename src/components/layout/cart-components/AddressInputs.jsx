@@ -5,7 +5,12 @@ import { Button, Input, Card, CardBody } from "@nextui-org/react";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-export default function AddressInputs({ user, total, cartProductsClient }) {
+export default function AddressInputs({
+  user,
+  total,
+  cartProductsClient,
+  disabled,
+}) {
   const router = useRouter();
   const [apiError, setApiError] = useState("");
   const formik = useFormik({
@@ -88,7 +93,8 @@ export default function AddressInputs({ user, total, cartProductsClient }) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.phone_number}
-                  disabled={formik.isSubmitting}
+                  disabled={!!disabled ? disabled : formik.isSubmitting}
+                  color={disabled && "danger"}
                 />
                 {formik.touched.phone_number && formik.errors.phone_number ? (
                   <div className="text-red-500">
@@ -110,7 +116,8 @@ export default function AddressInputs({ user, total, cartProductsClient }) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.street_address}
-                  disabled={formik.isSubmitting}
+                  disabled={!!disabled ? disabled : formik.isSubmitting}
+                  color={disabled && "danger"}
                 />
                 {formik.touched.street_address &&
                 formik.errors.street_address ? (
@@ -136,7 +143,8 @@ export default function AddressInputs({ user, total, cartProductsClient }) {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.postal_code}
-                    disabled={formik.isSubmitting}
+                    disabled={!!disabled ? disabled : formik.isSubmitting}
+                    color={disabled && "danger"}
                   />
                   {formik.touched.postal_code && formik.errors.postal_code ? (
                     <div className="text-red-500">
@@ -158,7 +166,8 @@ export default function AddressInputs({ user, total, cartProductsClient }) {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.city}
-                    disabled={formik.isSubmitting}
+                    disabled={!!disabled ? disabled : formik.isSubmitting}
+                    color={disabled && "danger"}
                   />
                   {formik.touched.city && formik.errors.city ? (
                     <div className="text-red-500">{formik.errors.city}</div>
@@ -179,7 +188,8 @@ export default function AddressInputs({ user, total, cartProductsClient }) {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   value={formik.values.country}
-                  disabled={formik.isSubmitting}
+                  disabled={!!disabled ? disabled : formik.isSubmitting}
+                  color={disabled && "danger"}
                 />
                 {formik.touched.country && formik.errors.country ? (
                   <div className="text-red-500">{formik.errors.country}</div>
@@ -194,17 +204,18 @@ export default function AddressInputs({ user, total, cartProductsClient }) {
               </span>
             )}
             {apiError && <div className="text-red-500 mx-auto">{apiError}</div>}
-
-            <Button
-              color="danger"
-              size={"lg"}
-              variant="shadow"
-              type="submit"
-              className="my-10 disabled:bg-gray-500"
-              disabled={formik.isSubmitting}
-            >
-              Pay $ {total}
-            </Button>
+            {!disabled && (
+              <Button
+                color="danger"
+                size={"lg"}
+                variant="shadow"
+                type="submit"
+                className="my-10 disabled:bg-gray-500"
+                disabled={formik.isSubmitting}
+              >
+                Pay $ {total}
+              </Button>
+            )}
           </div>
         </form>
       </div>
