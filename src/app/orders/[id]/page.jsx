@@ -6,7 +6,6 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import useSWR from "swr";
 export default function OrderPage() {
-
   const clearCart = useCartProductsStore((state) => state.clearCart);
   const { id } = useParams();
   useEffect(() => {
@@ -22,7 +21,6 @@ export default function OrderPage() {
 
   // Get categories data from server with SWR
   const { data: orders, error, isLoading } = useSWR("orders", fetcher);
-
   return (
     <section className="max-w-2xl mx-auto text-center mt-8">
       <div className="text-center">

@@ -1,22 +1,9 @@
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 import { Order } from "@/app/models/Order";
-import { User } from "@/app/models/User";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/options";
+import { authOptions, isAdmin } from "@/app/api/auth/[...nextauth]/options";
 
-export async function isAdmin() {
-  const session = await getServerSession(authOptions);
-  const userEmail = session?.user?.email;
-  if (!userEmail) {
-    return false;
-  }
-  const userInfo = await User.findOne({ email: userEmail });
-  if (!userInfo) {
-    return false;
-  }
-  return userInfo.admin;
-}
 export async function GET(req) {
   try {
     mongoose.connect(process.env.NEXT_PUBLIC_MONGO_URL);
