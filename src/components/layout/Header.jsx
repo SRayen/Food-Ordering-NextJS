@@ -92,9 +92,11 @@ export default function Header() {
 
         <Link href={"/cart"} className="relative">
           <ShoppingCart />
-          <span className="absolute -top-2 -right-4 bg-primary text-white text-xs p-1 rounded-full leading-3">
-            {count}
-          </span>
+          {count > 0 && (
+            <span className="absolute -top-2 -right-4 bg-primary text-white text-xs p-1 rounded-full leading-3">
+              {count}
+            </span>
+          )}
         </Link>
       </Navbar>
     </header>

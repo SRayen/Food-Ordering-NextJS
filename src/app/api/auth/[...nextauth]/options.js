@@ -4,7 +4,8 @@ import GoogleProvider from "next-auth/providers/google";
 import mongoose from "mongoose";
 import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import clientPromise from "@/libs/mongoConnect";
-
+import { User } from "@/app/models/User";
+import { getServerSession } from "next-auth";
 export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   // Adapter for interacting with MongoDB for session and user data storage
@@ -41,7 +42,7 @@ export const authOptions = {
     }),
   ],
   session: {
-     // Use JWT strategy for session management // Set it as jwt instead of database
+    // Use JWT strategy for session management // Set it as jwt instead of database
     strategy: "jwt",
   },
   callbacks: {
@@ -62,3 +63,16 @@ export const authOptions = {
     },
   },
 };
+
+export async function isAdmin() {
+  const session = await getServerSession(authOptions);
+  const userEmail = session?.user?.email;
+  if (!userEmail) {
+    return false;
+  }
+  const userInfo = await User.findOne({ email: userEmail });
+  if (!userInfo) {
+    return false;
+  }
+  return userInfo.admin;
+}
