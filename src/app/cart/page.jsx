@@ -3,11 +3,12 @@
 import AddressInputs from "@/components/layout/cart-components/AddressInputs";
 import SectionHeaders from "@/components/layout/SectionHeaders";
 import CartProduct from "@/components/menu/CartProduct";
-
 import { useEffect, useState } from "react";
 import { useCartProductsStore } from "@/store/CartProductStore";
 import { useUserStore } from "@/store/UserStore";
 import toast from "react-hot-toast";
+import ProductsList from "@/components/layout/cart-components/ProductsList";
+
 export default function CartPage() {
   const [cartProductsClient, setCartProductsClient] = useState([]);
 
@@ -22,10 +23,8 @@ export default function CartPage() {
   }, [cartProducts]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      if (window.location.href.includes("canceled=1")) {
-        toast.error("Payment failed 😔");
-      }
+    if (window.location.href.includes("canceled=1")) {
+      toast.error("Payment failed 😔");
     }
   }, []);
 
@@ -49,34 +48,11 @@ export default function CartPage() {
         <SectionHeaders mainHeader="Cart" />
       </div>
       <div className="flex gap-2 justify-between flex-col mt-8 md:flex-row">
-        <div className="border flex-grow">
-          {cartProductsClient?.length === 0 && (
-            <div>No products in your shopping cart</div>
-          )}
-          {cartProductsClient?.length > 0 &&
-            cartProductsClient.map((product, index) => (
-              <CartProduct
-                key={index}
-                product={product}
-                onRemove={() => deletedFromCart(index)}
-              />
-            ))}
-          <div className="py-2 pr-16 flex justify-end items-center">
-            <div className="text-gray-500">
-              Subtotal:
-              <br />
-              Delivery:
-              <br />
-              Total:
-            </div>
-            <div className="font-semibold pl-2 text-right">
-              ${subtotal}
-              <br />
-              $5
-              <br />${subtotal + 5}
-            </div>
-          </div>
-        </div>
+        <ProductsList
+          cartProductsClient={cartProductsClient}
+          subtotal={subtotal}
+          deletedFromCart={deletedFromCart}
+        />
         <div className="bg-gray-100 p-4 rounded-lg">
           <AddressInputs
             user={user}

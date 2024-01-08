@@ -10,9 +10,7 @@ export async function POST(req) {
     const signSecret = process.env.STRIPE_SIGN_SECRET;
     event = stripe.webhooks.constructEvent(reqBuffer, sig, signSecret);
   } catch (error) {
-    console.error("stripe error");
-    console.error("stripe error");
-    return NextResponse.json(error, { status: 400 });
+    return NextResponse.json({ message: "Stripe error" }, { status: 400 });
   }
   if (event.type === "checkout.session.completed") {
     const orderId = event?.data?.object?.metadata?.orderId;

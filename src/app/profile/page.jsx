@@ -21,7 +21,6 @@ export default function ProfilePage() {
     return response.data;
   };
 
-  // Get categories data from server with SWR
   const { data: user, error, isLoading } = useSWR("user", fetcher);
 
   let tabs = [
