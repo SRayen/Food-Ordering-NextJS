@@ -3,7 +3,6 @@ import { useSession } from "next-auth/react";
 import Loading from "@/app/loading";
 import axios from "axios";
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
-
 import ProfileTab from "@/components/layout/profile_components/ProfileTab";
 import CategoriesTab from "@/components/layout/profile_components/CategoriesTab";
 import MenuItemTab from "@/components/layout/profile_components/MenuItemTab";
@@ -12,7 +11,18 @@ import OrdersTab from "@/app/orders/page";
 import useSWR from "swr";
 import Error from "@/app/error";
 import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
 export default function ProfilePage() {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const session = useSession();
   if (session.status === "unauthenticated") {
     redirect("/login");
@@ -37,7 +47,7 @@ export default function ProfilePage() {
     },
     {
       id: "Menu",
-      label: "Menu Items",
+      label: "Menu",
       content: <MenuItemTab />,
     },
     {
@@ -61,7 +71,11 @@ export default function ProfilePage() {
       ) : (
         <section className="mt-14 w-full mx-auto font-semibold">
           {user?.admin ? (
-            <Tabs aria-label="Dynamic tabs" items={tabs}>
+            <Tabs
+              aria-label="Dynamic tabs"
+              items={tabs}
+              size={isSmallScreen ? "sm" : "md"}
+            >
               {(item) => (
                 <Tab key={item.id} title={item.label}>
                   <Card>
