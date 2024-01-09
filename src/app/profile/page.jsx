@@ -8,12 +8,13 @@ import ProfileTab from "@/components/layout/profile_components/ProfileTab";
 import CategoriesTab from "@/components/layout/profile_components/CategoriesTab";
 import MenuItemTab from "@/components/layout/profile_components/MenuItemTab";
 import UsersTab from "@/components/layout/profile_components/UsersTab";
+import OrdersTab from "@/app/orders/page";
 import useSWR from "swr";
 import Error from "@/app/error";
 import { redirect } from "next/navigation";
 export default function ProfilePage() {
   const session = useSession();
-  if (session.status==="unauthenticated") {
+  if (session.status === "unauthenticated") {
     redirect("/login");
   }
   const fetcher = async () => {
@@ -44,6 +45,11 @@ export default function ProfilePage() {
       label: "Users",
       content: <UsersTab />,
     },
+    {
+      id: "Orders",
+      label: "Orders",
+      content: <OrdersTab />,
+    },
   ];
 
   if (error) return <Error />;
@@ -69,6 +75,11 @@ export default function ProfilePage() {
               <Tab key={tabs[0].id} title={tabs[0].label}>
                 <Card>
                   <CardBody>{tabs[0].content}</CardBody>
+                </Card>
+              </Tab>
+              <Tab key={tabs[4].id} title={tabs[4].label}>
+                <Card>
+                  <CardBody>{tabs[4].content}</CardBody>
                 </Card>
               </Tab>
             </Tabs>

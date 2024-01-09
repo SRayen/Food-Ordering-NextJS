@@ -19,6 +19,5 @@ export async function POST(req) {
       await Order.updateOne({ _id: orderId }, { paid: true });
     }
   }
-
   return NextResponse.json("ok", { status: 200 });
 }

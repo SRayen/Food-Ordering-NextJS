@@ -24,7 +24,6 @@ export default function OrderPage() {
     return response.data;
   };
 
-  // Get categories data from server with SWR
   const { data: orders, error, isLoading } = useSWR("orders", fetcher);
 
   let subtotal = 0;
