@@ -9,7 +9,7 @@ export default function ContactUs() {
           href="tel:+21678456456"
           className="text-4xl underline text-gray-500 font-lemon"
         >
-          +216 78 456 456
+          +216 33 456 456
         </a>
       </div>
     </section>

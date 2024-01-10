@@ -1,7 +1,10 @@
+"use client";
 import Image from "next/image";
 import Right from "../icons/Right";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
+  const router = useRouter();
   return (
     <section className="hero mt-4 ">
       <div className="py-8  w-full">
@@ -24,12 +27,18 @@ export default function Hero() {
               delivered straight to your door.
             </p>
             <div className="flex gap-4 text-sm  justify-center">
-              <button className="bg-primary text-white px-4 py-2 rounded-full flex items-center gap-2 uppercase ">
+              <button
+                onClick={() => router.push("/menu")}
+                className="bg-primary text-white px-4 py-2 rounded-full flex items-center gap-2 uppercase"
+              >
                 Order now
                 <Right />
               </button>
-              <button className="flex gap-2 py-2 text-gray-600 font-semibold">
-                Learn more
+              <button
+                onClick={() => router.push("/profile")}
+                className="flex gap-2 py-2 text-gray-600 font-semibold"
+              >
+                Visit Profile
                 <Right />
               </button>
             </div>
