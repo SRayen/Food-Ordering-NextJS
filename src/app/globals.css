@@ -29,7 +29,7 @@
 @tailwind components;
 @tailwind utilities;
 
-section.hero {
+/* section.hero {
   @apply grid;
   grid-template-columns: 0.4fr 0.6fr;
-}
+} */
