@@ -5,16 +5,11 @@ export default function AboutUs() {
     <section className="text-center my-16">
       <SectionHeaders subHeader={"Our story"} mainHeader={"About us"} />
       <div className="text-gray-500 max-w-md mx-auto mt-4 flex flex-col gap-4">
-        <p className="max-w-2xl  mt-4 ">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Perspiciatis
-          facere distinctio, non saepe neque optio ea perferendis quidem velit
-          porro, dignissimos nihil odit laudantium vero beatae dolorum
-          blanditiis. Rem, quaerat?
-        </p>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium
-          quo, repellendus consequuntur iste rem optio maiores iusto vel, quis
-          ipsa, quam praesentium ipsum dolorum in officiis autem?
+        <p className="max-w-2xl  mt-4 font-lemon ">
+          We are passionate foodies on a mission to bring you the best. Our
+          platform curates a delicious selection of handcrafted pizzas, made
+          with fresh, local ingredients and time-honored recipes. Every bite is
+          a celebration of flavor, delivered with a smile.
         </p>
       </div>
     </section>

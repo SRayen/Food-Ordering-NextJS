@@ -17,6 +17,7 @@ module.exports = {
       },
       fontFamily: {
         poppins: ["var(--font-poppins)"],
+        lemon: ["var(--font-lemon)"],
       },
     },
   },

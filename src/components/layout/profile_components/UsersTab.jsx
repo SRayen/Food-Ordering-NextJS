@@ -48,9 +48,9 @@ export default function UsersTab() {
                       <span className="italic">No name</span>
                     )}
                   </div>
-                  <span className="text-gray-500">{user.email}</span>
+                  <span className="text-gray-500 text-xs md:text-sm">{user.email}</span>
                 </div>
-                <Button color="danger" onPress={() => setUser(user)}>
+                <Button color="danger" onPress={() => setUser(user)} size="sm">
                   Edit
                 </Button>
               </div>

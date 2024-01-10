@@ -1,4 +1,4 @@
-import { Roboto, Poppins } from "next/font/google";
+import { Roboto, Poppins, Lemon } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
@@ -15,6 +15,12 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+const lemon = Lemon({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-lemon",
+});
+
 export const metadata = {
   title: "SRayen Food Ordering",
   description: "Food Ordering App",
@@ -24,8 +30,10 @@ export default async function RootLayout({ children }) {
   const session = await getServerSession();
 
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={`${roboto.className} ${poppins.variable}`}>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning={true}>
+      <body
+        className={`${roboto.className} ${poppins.variable} ${lemon.variable}`}
+      >
         <SessionProvider session={session}>
           <main className="max-w-4xl border mx-auto py-4 px-2">
             <Providers>
