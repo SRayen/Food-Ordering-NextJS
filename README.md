@@ -10,7 +10,9 @@
 
 ## 📘 Introduction <a name="introduction"></a>
 
- **Built with the robust framework of Next.js 14, this platform orchestrates a complete journey, from browsing tempting menus and placing orders to savor your final bite.**
+✨🚀 **A delivery web application that allows customers to order pizzas online. The application also allows customers to manage their profile, view their orders history and shipping addresses.
+It is built using modern web technologies and provides an intuitive and easy-to-use interface for customers to order their favorite pizzas.
+Built from scratch with the robust framework Next.js 14 and MongoDB.** ✨🚀
 
 ## 🎬 Demo <a name="introduction"></a>
 
