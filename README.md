@@ -11,6 +11,14 @@
 ## 📘 Introduction <a name="introduction"></a>
 
  **Built with the robust framework of Next.js 14, this platform orchestrates a complete journey, from browsing tempting menus and placing orders to savor your final bite.**
+
+## 🎬 Demo <a name="introduction"></a>
+
+
+
+https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/b3c4360d-e602-4b80-8b7b-83ec1c8b4d2f
+
+
  
 ## ✍️ UML Use Case Diagram  <a name="features"></a>
 
