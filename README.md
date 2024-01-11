@@ -18,6 +18,7 @@
 
 ## Tech Stack :
 * ➡️ **Next JS**: used as a full-stack framework, enabling the creation of a modern full-stack application with features such as server-side rendering and a simplified development process for both the front end and back end
+* ➡️ **NextAuth**:  a flexible and configurable authentication solution that supports various sign-on services, was used for credentials and Google authentication in this application. 
 * ➡️ **Formik - Yup**: Formik, when paired with Yup, simplifies form validation in React by abstracting complexities and providing support for schema-based form-level validation through Yup.
 * ➡️ **useSWR**: a React Hooks library for data fetching that simplifies the process of fetching and handling client-side data in Next.js,
 * ➡️ **Zustand**: a small, fast, and scalable state management solution for React.
