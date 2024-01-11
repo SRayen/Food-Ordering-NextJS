@@ -16,19 +16,4 @@
  
 ## ✍️ UML Use Case Diagram  <a name="features"></a>
 
-This app has the following functionalities:
-
-### Admin:
-* ✔ Supervise users
-* ✔ Visit different products
-* ✔ Add products to the cart
-* ✔ Make an Order
-* ✔ Checkout & pay for order
-
-### User:
-* ✔ Sign in/up
-* ✔ Visit  diverse menus
-* ✔ Add products to the cart
-* ✔ Make an Order
-* ✔ Checkout & pay for order
-* ✔ Revisit past orders
+![diag](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/a990c668-f045-4233-b4ae-85f907382191)
