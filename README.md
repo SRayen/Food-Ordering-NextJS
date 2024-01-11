@@ -27,3 +27,8 @@
   <img  width="295" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/d8f3fca1-82ad-4f40-856f-77d4de0dd685" alt="Home">
 </div>
 
+<div align="center">
+  <img  width="360" height="600" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/c46c8c1a-6935-46af-b36f-608113ecdff2" alt="Register">
+  <img  width="470" height="600" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/d0040e87-5470-43b5-bad5-3eb332695a4b" alt="Register">
+</div>
+
