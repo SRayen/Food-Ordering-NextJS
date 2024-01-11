@@ -6,7 +6,6 @@
     <code><img width="160" src="https://miro.medium.com/v2/resize:fit:1400/1*opBgWH5AfF8dn_QzUGY5oA.png" alt="Formik" title="Formik"/></code>
 	  <code><img width="100" src="https://avatars.githubusercontent.com/u/86160567?s=48&v=4" alt="Next UI" title="Next UI"/></code>
   <code><img width="100" src="https://user-images.githubusercontent.com/25181517/202896760-337261ed-ee92-4979-84c4-d4b829c7355d.png" alt="Tailwind CSS" title="Tailwind CSS"/></code>
-
 </div>
 
 ## 📘 Introduction <a name="introduction"></a>
@@ -22,11 +21,19 @@
 * ➡️ **Formik - Yup**: Formik, when paired with Yup, simplifies form validation in React by abstracting complexities and providing support for schema-based form-level validation through Yup.
 * ➡️ **useSWR**: a React Hooks library for data fetching that simplifies the process of fetching and handling client-side data in Next.js,
 * ➡️ **Zustand**: a small, fast, and scalable state management solution for React.
-* ➡️ **Next UI - Tailwind CSS**: NextUI is a UI library for React that combines the power of TailwindCSS with React Aria to provide complete components (logic and styles) for building accessible and customizable user interfaces. 
-
+* ➡️ **Next UI - Tailwind CSS**: NextUI is a UI library for React that combines the power of Tailwind CSS with React Aria to provide complete components (logic and styles) for building accessible and customizable user interfaces. 
 
 ##  Screenshots 🎬 <a name="screenshots"></a>
 
+![home-sm](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/f92d3411-2e1b-401c-b679-c87899781d55)
+![register-sm](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/8bc349a9-58eb-4e62-bb06-f54b576a82ad)
+![home-sm](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/a4811480-d901-4a66-a01b-bbae7866f19e)
+
+<div align="center">
+  <img  width="310" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/f92d3411-2e1b-401c-b679-c87899781d55" alt="Register">
+  <img  width="280" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/8bc349a9-58eb-4e62-bb06-f54b576a82ad" alt="Login">
+  <img  width="295" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/d8f3fca1-82ad-4f40-856f-77d4de0dd685" alt="Home">
+</div>
 
 <div align="center">
   <img  width="310" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/1d0e90d1-769e-4e08-b7f1-4e25197c5545" alt="Register">
