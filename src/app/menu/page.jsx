@@ -16,7 +16,7 @@ export default function Menu() {
     error: MenuError,
     isLoading: MenuIsLoading,
   } = useMenuItems();
-  if (catError || MenuError) return <Error />;
+
   if (catIsLoading || MenuIsLoading) return <Loading />;
   
   return (
