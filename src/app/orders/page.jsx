@@ -71,8 +71,7 @@ export default function OrdersTab() {
         <div>
           <Table
             aria-label="Example table with client async pagination"
-            className="h-56g
-            "
+            className="h-56"
           >
             <TableHeader>
               <TableColumn key="userEmail">Email</TableColumn>
