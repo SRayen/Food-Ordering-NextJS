@@ -29,11 +29,11 @@ export default function AddressInputs({
           message: "Please enter valid phone number.",
           excludeEmptyString: false,
         }
-      ),
-      street_address: Yup.string(),
-      postal_code: Yup.string(),
-      city: Yup.string(),
-      country: Yup.string(),
+      ).required("Required field"),
+      street_address: Yup.string().required("Required field"),
+      postal_code: Yup.string().required("Required field"),
+      city: Yup.string().required("Required field"),
+      country: Yup.string().required("Required field"),
     }),
     onSubmit: async (values) => {
       setApiError("");
