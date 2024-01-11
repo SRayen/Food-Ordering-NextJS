@@ -25,24 +25,9 @@
 
 ##  Screenshots 🎬 <a name="screenshots"></a>
 
-![home-sm](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/f92d3411-2e1b-401c-b679-c87899781d55)
-![register-sm](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/8bc349a9-58eb-4e62-bb06-f54b576a82ad)
-![home-sm](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/a4811480-d901-4a66-a01b-bbae7866f19e)
-
-<div align="center">
-  <img  width="310" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/f92d3411-2e1b-401c-b679-c87899781d55" alt="Register">
-  <img  width="280" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/8bc349a9-58eb-4e62-bb06-f54b576a82ad" alt="Login">
-  <img  width="295" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/d8f3fca1-82ad-4f40-856f-77d4de0dd685" alt="Home">
-</div>
-
 <div align="center">
   <img  width="310" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/1d0e90d1-769e-4e08-b7f1-4e25197c5545" alt="Register">
   <img  width="280" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/180f9afb-88fc-4527-a915-d28d1f249497" alt="Login">
   <img  width="295" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/d8f3fca1-82ad-4f40-856f-77d4de0dd685" alt="Home">
-</div>
-
-<div align="center">
-  <img  width="360" height="600" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/c46c8c1a-6935-46af-b36f-608113ecdff2" alt="Register">
-  <img  width="470" height="600" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/d0040e87-5470-43b5-bad5-3eb332695a4b" alt="Register">
 </div>
 
