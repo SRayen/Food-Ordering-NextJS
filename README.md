@@ -13,3 +13,22 @@
 ## 📘 Introduction <a name="introduction"></a>
 
  **Built with the robust framework of Next.js 14, this platform orchestrates a complete journey, from browsing tempting menus and placing orders to savor your final bite.**
+ 
+## Features 🧩 <a name="features"></a>
+
+This app has the following functionalities:
+
+### Admin:
+* ✔ Supervise users
+* ✔ Visit different products
+* ✔ Add products to the cart
+* ✔ Make an Order
+* ✔ Checkout & pay for order
+
+### User:
+* ✔ Sign in/up
+* ✔ Visit  diverse menus
+* ✔ Add products to the cart
+* ✔ Make an Order
+* ✔ Checkout & pay for order
+* ✔ Revisit past orders
