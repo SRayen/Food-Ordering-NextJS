@@ -17,3 +17,10 @@
 ## ✍️ UML Use Case Diagram  <a name="features"></a>
 
 ![diag](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/a990c668-f045-4233-b4ae-85f907382191)
+
+##  Screenshots 🎬 <a name="screenshots"></a>
+
+
+![zyro-image (1)](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/180f9afb-88fc-4527-a915-d28d1f249497)
+![zyro-image](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/1d0e90d1-769e-4e08-b7f1-4e25197c5545)
+
