@@ -24,6 +24,6 @@
 <div align="center">
   <img  width="310" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/1d0e90d1-769e-4e08-b7f1-4e25197c5545" alt="Register">
   <img  width="280" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/180f9afb-88fc-4527-a915-d28d1f249497" alt="Login">
-  <img  width="294" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/d8f3fca1-82ad-4f40-856f-77d4de0dd685" alt="Home">
+  <img  width="295" src="https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/d8f3fca1-82ad-4f40-856f-77d4de0dd685" alt="Home">
 </div>
 
