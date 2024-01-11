@@ -136,12 +136,12 @@ export default function LoginPage() {
         Login with google
       </button>
       <p className="text-center mt-6 text-lg font-poppins font-bold">
-        Existing account ?{" "}
+        Need an account ?{" "}
         <Link
-          href={"/login"}
+          href={"/register"}
           className="underline text-warning hover:text-green-800 cursor-pointer"
         >
-          Login here &raquo;
+          Sign up &raquo;
         </Link>
       </p>
     </section>
