@@ -20,7 +20,6 @@ export default function MenuList({
 
   const { menuItems, error, isLoading } = useMenuItems();
 
-  if (error) return <Error />;
   if (isLoading) return <Loading />;
 
   const setVisibleDeleteModal = () => {
