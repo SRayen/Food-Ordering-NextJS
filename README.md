@@ -23,8 +23,7 @@ https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/b3c4360d-e602-4b8
 
  
 ## ✍️ UML Use Case Diagram  <a name="features"></a>
-
-![diag](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/a990c668-f045-4233-b4ae-85f907382191)
+![diag updated](https://github.com/SRayen/Food-Ordering-NextJS/assets/13922445/dc1a557b-0bda-4f1f-bb04-52bfe9cffc59)
 
 ## Tech Stack :
 * ➡️ **Next JS**: used as a full-stack framework, enabling the creation of a modern full-stack application with features such as server-side rendering and a simplified development process for both the front end and back end
